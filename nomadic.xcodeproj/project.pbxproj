@@ -7,14 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18169708369C8B006BAF21AB /* Pods_nomadic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 398048A7DECC4E82121CD3EE /* Pods_nomadic.framework */; };
 		E114CF671F9E09FA0044C183 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114CF661F9E09FA0044C183 /* AppDelegate.swift */; };
 		E114CF691F9E09FA0044C183 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114CF681F9E09FA0044C183 /* ViewController.swift */; };
 		E114CF6C1F9E09FA0044C183 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6A1F9E09FA0044C183 /* Main.storyboard */; };
 		E114CF6E1F9E09FA0044C183 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6D1F9E09FA0044C183 /* Assets.xcassets */; };
 		E114CF711F9E09FA0044C183 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6F1F9E09FA0044C183 /* LaunchScreen.storyboard */; };
+		E114CF791F9E0A510044C183 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E114CF781F9E0A510044C183 /* GoogleService-Info.plist */; };
+		E12C56821F9F6BD200A0D987 /* DicEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C56811F9F6BD200A0D987 /* DicEntry.swift */; };
+		E12C56841F9F781C00A0D987 /* UpdataTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C56831F9F781C00A0D987 /* UpdataTime.swift */; };
+		E149D1511FA156770038B68E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149D1501FA156770038B68E /* DetailViewController.swift */; };
+		E15935511F9E14BE009D2369 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15935501F9E14BE009D2369 /* Const.swift */; };
+		E15935531F9E16C5009D2369 /* NomadicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15935521F9E16C5009D2369 /* NomadicData.swift */; };
+		E1793D781FA0A70E00DD3F84 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */; };
+		E1793D7A1FA0D5AB00DD3F84 /* SelectedDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1793D791FA0D5AB00DD3F84 /* SelectedDataViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		056B48777AE42AD676EB0087 /* Pods-nomadic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nomadic.release.xcconfig"; path = "Pods/Target Support Files/Pods-nomadic/Pods-nomadic.release.xcconfig"; sourceTree = "<group>"; };
+		398048A7DECC4E82121CD3EE /* Pods_nomadic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nomadic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		648DD2FABA2005C1F1AF834D /* Pods-nomadic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nomadic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nomadic/Pods-nomadic.debug.xcconfig"; sourceTree = "<group>"; };
 		E114CF631F9E09FA0044C183 /* nomadic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nomadic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E114CF661F9E09FA0044C183 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E114CF681F9E09FA0044C183 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +34,14 @@
 		E114CF6D1F9E09FA0044C183 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E114CF701F9E09FA0044C183 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E114CF721F9E09FA0044C183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E114CF781F9E0A510044C183 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E12C56811F9F6BD200A0D987 /* DicEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DicEntry.swift; sourceTree = "<group>"; };
+		E12C56831F9F781C00A0D987 /* UpdataTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdataTime.swift; sourceTree = "<group>"; };
+		E149D1501FA156770038B68E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E15935501F9E14BE009D2369 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		E15935521F9E16C5009D2369 /* NomadicData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NomadicData.swift; sourceTree = "<group>"; };
+		E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
+		E1793D791FA0D5AB00DD3F84 /* SelectedDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedDataViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +49,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18169708369C8B006BAF21AB /* Pods_nomadic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D6E94757EA64995B3DF9768F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				648DD2FABA2005C1F1AF834D /* Pods-nomadic.debug.xcconfig */,
+				056B48777AE42AD676EB0087 /* Pods-nomadic.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DB1934A84275E956044E3999 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				398048A7DECC4E82121CD3EE /* Pods_nomadic.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E114CF5A1F9E09FA0044C183 = {
 			isa = PBXGroup;
 			children = (
 				E114CF651F9E09FA0044C183 /* nomadic */,
 				E114CF641F9E09FA0044C183 /* Products */,
+				D6E94757EA64995B3DF9768F /* Pods */,
+				DB1934A84275E956044E3999 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,6 +100,14 @@
 				E114CF6D1F9E09FA0044C183 /* Assets.xcassets */,
 				E114CF6F1F9E09FA0044C183 /* LaunchScreen.storyboard */,
 				E114CF721F9E09FA0044C183 /* Info.plist */,
+				E114CF781F9E0A510044C183 /* GoogleService-Info.plist */,
+				E15935501F9E14BE009D2369 /* Const.swift */,
+				E15935521F9E16C5009D2369 /* NomadicData.swift */,
+				E12C56811F9F6BD200A0D987 /* DicEntry.swift */,
+				E12C56831F9F781C00A0D987 /* UpdataTime.swift */,
+				E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */,
+				E1793D791FA0D5AB00DD3F84 /* SelectedDataViewController.swift */,
+				E149D1501FA156770038B68E /* DetailViewController.swift */,
 			);
 			path = nomadic;
 			sourceTree = "<group>";
@@ -71,9 +119,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E114CF751F9E09FA0044C183 /* Build configuration list for PBXNativeTarget "nomadic" */;
 			buildPhases = (
+				9EE7CC46E63004C88AA0F258 /* [CP] Check Pods Manifest.lock */,
 				E114CF5F1F9E09FA0044C183 /* Sources */,
 				E114CF601F9E09FA0044C183 /* Frameworks */,
 				E114CF611F9E09FA0044C183 /* Resources */,
+				0F21BD3CE59D7801EF32B302 /* [CP] Embed Pods Frameworks */,
+				E03E682C2DE15B948F56BFE2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E114CF711F9E09FA0044C183 /* LaunchScreen.storyboard in Resources */,
+				E114CF791F9E0A510044C183 /* GoogleService-Info.plist in Resources */,
 				E114CF6E1F9E09FA0044C183 /* Assets.xcassets in Resources */,
 				E114CF6C1F9E09FA0044C183 /* Main.storyboard in Resources */,
 			);
@@ -132,13 +184,68 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0F21BD3CE59D7801EF32B302 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nomadic/Pods-nomadic-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9EE7CC46E63004C88AA0F258 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E03E682C2DE15B948F56BFE2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-nomadic/Pods-nomadic-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E114CF5F1F9E09FA0044C183 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E149D1511FA156770038B68E /* DetailViewController.swift in Sources */,
 				E114CF691F9E09FA0044C183 /* ViewController.swift in Sources */,
+				E1793D781FA0A70E00DD3F84 /* TagsViewController.swift in Sources */,
+				E12C56841F9F781C00A0D987 /* UpdataTime.swift in Sources */,
+				E1793D7A1FA0D5AB00DD3F84 /* SelectedDataViewController.swift in Sources */,
+				E15935531F9E16C5009D2369 /* NomadicData.swift in Sources */,
 				E114CF671F9E09FA0044C183 /* AppDelegate.swift in Sources */,
+				E12C56821F9F6BD200A0D987 /* DicEntry.swift in Sources */,
+				E15935511F9E14BE009D2369 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +366,7 @@
 		};
 		E114CF761F9E09FA0044C183 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 648DD2FABA2005C1F1AF834D /* Pods-nomadic.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MR965626L4;
@@ -272,6 +380,7 @@
 		};
 		E114CF771F9E09FA0044C183 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 056B48777AE42AD676EB0087 /* Pods-nomadic.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = MR965626L4;
@@ -302,6 +411,7 @@
 				E114CF771F9E09FA0044C183 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
