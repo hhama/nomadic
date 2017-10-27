@@ -1,0 +1,85 @@
+PODS:
+  - CopyableLabel (3.1.1)
+  - Firebase (4.1.0):
+    - Firebase/Core (= 4.1.0)
+  - Firebase/Auth (4.1.0):
+    - Firebase/Core
+    - FirebaseAuth (= 4.1.0)
+  - Firebase/Core (4.1.0):
+    - FirebaseAnalytics (= 4.0.3)
+    - FirebaseCore (= 4.0.5)
+  - Firebase/Database (4.1.0):
+    - Firebase/Core
+    - FirebaseDatabase (= 4.0.1)
+  - FirebaseAnalytics (4.0.3):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - nanopb (~> 0.3)
+  - FirebaseAuth (4.1.0):
+    - FirebaseAnalytics (~> 4.0)
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (4.0.5):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+    - nanopb (~> 0.3)
+  - FirebaseDatabase (4.0.1):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseCore (~> 4.0)
+    - leveldb-library (~> 1.18)
+  - FirebaseInstanceID (2.0.4)
+  - GoogleToolboxForMac/DebugUtils (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/Defines (2.1.1)
+  - GoogleToolboxForMac/NSData+zlib (2.1.1):
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.1):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.1)
+    - GoogleToolboxForMac/Defines (= 2.1.1)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
+  - GTMSessionFetcher/Core (1.1.12)
+  - leveldb-library (1.18.3)
+  - nanopb (0.3.8):
+    - nanopb/decode (= 0.3.8)
+    - nanopb/encode (= 0.3.8)
+  - nanopb/decode (0.3.8)
+  - nanopb/encode (0.3.8)
+  - PureLayout (3.0.2)
+  - Realm (2.6.2):
+    - Realm/Headers (= 2.6.2)
+  - Realm/Headers (2.6.2)
+  - RealmSwift (2.6.2):
+    - Realm (= 2.6.2)
+  - SVProgressHUD (2.2.1)
+
+DEPENDENCIES:
+  - CopyableLabel (~> 3.1)
+  - Firebase (= 4.1.0)
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Database
+  - PureLayout (= 3.0.2)
+  - RealmSwift (= 2.6.2)
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  CopyableLabel: f6b7d6adfc547b653823d01b568dd073640903c6
+  Firebase: ebebf41db7f10e0c7668b6eaaa857fbe599aa478
+  FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
+  FirebaseAuth: 8d1d2389cf82f891048d6d50d27d044f55ae09a6
+  FirebaseCore: 7d876ea97a830cbe62ba7fbbe7670c833a324ba0
+  FirebaseDatabase: 94c38c783d23dc6679441050772d42e801d06e9e
+  FirebaseInstanceID: 70c2b877e9338971b2429ea5a4293df6961aa44e
+  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
+  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
+  leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
+  nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
+  Realm: 29222766425b9f831228f81b63f0e38a97a4d700
+  RealmSwift: d161a80f96cb91ae88391a7d5a9cf08024a7bc8e
+  SVProgressHUD: db27c54e6e18bc903341661fc9feb55e04905cc4
+
+PODFILE CHECKSUM: fdce5605431b25741159d62544eb73dca3bf1aa9
+
+COCOAPODS: 1.2.0
