@@ -15,24 +15,27 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
 
     var id = ""
     
-    @IBOutlet weak var scrollView: UIScrollView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // 画面の大きさを取得
-        // let myBoundSize: CGSize = UIScreen.main.bounds.size
-        // let screenWidth:CGFloat = myBoundSize.width;
-        // let screenHeight:CGFloat = myBoundSize.height
+        let myBoundSize: CGSize = UIScreen.main.bounds.size
+        let screenWidth:CGFloat = myBoundSize.width;
+        let screenHeight:CGFloat = myBoundSize.height
 
         // realmから辞書を読み込み
         let realm = try! Realm()
         let dicEntryArray = realm.objects(DicEntry.self)
 
+        let scrollView = UIScrollView()
         scrollView.backgroundColor = UIColor.lightGray
         
+        // 表示窓のサイズと位置を設定
+        scrollView.frame.size = CGSize(width: screenWidth, height: screenHeight)
+        scrollView.center = self.view.center
+
         // 中身の大きさを設定
-        // scrollView.contentSize = CGSize(width: screenWidth, height: 1000)
+        scrollView.contentSize = CGSize(width: screenWidth, height: 1000)
         
         // スクロールの跳ね返り
         scrollView.bounces = true
@@ -46,22 +49,30 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
 
         for entry in dicEntryArray {
             if entry.id == id {
-                printEntry(entry: entry)
+                printEntry(entry: entry, scrollView: scrollView)
             }
         }
+        
+        self.view.addSubview(scrollView)
     }
     
     // 画面を作る
-    func printEntry(entry: DicEntry){
+    func printEntry(entry: DicEntry, scrollView: UIScrollView){
 
         // チベット語名称
         let tnameLabel = UILabel()
         tnameLabel.text = "\(id): \(entry.tname)"
+        tnameLabel.font = UIFont.systemFont(ofSize: 24)
         tnameLabel.numberOfLines = 0
         tnameLabel.copyable = true // コピー可能に
         scrollView.addSubview(tnameLabel)
         
-        tnameLabel.autoPinEdge(.top, to: .bottom, of: scrollView, withOffset: 10.0)
+        let screenSize = UIScreen.main.bounds.size
+        let tnameSize = CGSize(width: screenSize.width - 40, height: 24)
+        tnameLabel.autoSetDimensions(to: tnameSize)
+        
+        // tnameLabel.autoPinEdge(.top, to: .bottom, of: scrollView, withOffset: 10.0)
+        tnameLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 10.0)
         tnameLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
         tnameLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
 
@@ -98,9 +109,12 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         verbLabel.font = UIFont(name: "TimesNewRomanPS-BoldItalicMT", size: 20)
         scrollView.addSubview(verbLabel)
         
+        // verbLabel.autoSetDimension(.width, toSize: 30.0)
         verbLabel.autoPinEdge(.top, to: .bottom, of: preLabel, withOffset: 10.0)
         verbLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
         verbLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
+
+        preLabel = verbLabel
         
         // 日本語名称
         let jnameLabel = UILabel()
@@ -109,8 +123,11 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         jnameLabel.copyable = true // コピー可能に
         scrollView.addSubview(jnameLabel)
         
-        jnameLabel.autoPinEdge(.top, to: .bottom, of: preLabel, withOffset: 10.0)
-        jnameLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
+        jnameLabel.autoSetDimension(.width, toSize: screenSize.width - 60)
+        jnameLabel.autoPinEdge(.top, to: .bottom, of: wylieLabel, withOffset: 10.0)
+        //jnameLabel.autoPinEdge(.left, to: .right, of: verbLabel)
+        //jnameLabel.autoPinEdge(.left, to: .right, of: verbLabel, withOffset: 10.0)
+        //jnameLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
         jnameLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
 
         preLabel = jnameLabel
@@ -179,6 +196,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         }
         
         // 画像があった場合
+        var preImageView:UIImageView? = nil// ダミー
         if !entry.image.isEmpty {
             let image = UIImage(data: NSData(base64Encoded: entry.image, options: .ignoreUnknownCharacters)! as Data)
 
@@ -196,14 +214,46 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             imageView.autoPinEdge(.top, to: .bottom, of: preLabel, withOffset: 10.0)
             imageView.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
             imageView.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
+
+            preImageView = imageView // ダミー
         }
         
-        
-    }
+        // 画像があった場合(スクロールさせるためのダミー)
+        if !entry.image.isEmpty {
+            let image = UIImage(data: NSData(base64Encoded: entry.image, options: .ignoreUnknownCharacters)! as Data)
+            
+            // UIImageView 初期化
+            let imageView = UIImageView(image:image)
+            
+            // UIImageviewを角丸にする
+            imageView.clipsToBounds = true;
+            imageView.contentMode = UIViewContentMode.scaleAspectFill
+            imageView.layer.cornerRadius = 10.0;
+            
+            // UIImageViewのインスタンスをビューに追加
+            scrollView.addSubview(imageView)
+            
+            imageView.autoPinEdge(.top, to: .bottom, of: preImageView!, withOffset: 10.0)
+            imageView.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
+            imageView.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
+        }
+   }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+    /* 以下は UIScrollViewDelegate のメソッド */
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // スクロール中の処理
+        print("didScroll")
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        // ドラッグ開始時の処理
+        print("beginDragging")
     }
     
    /*

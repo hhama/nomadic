@@ -278,32 +278,7 @@
         <!--Detail View Controller-->
         <scene sceneID="YPc-cI-zy0">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="EQj-4v-jDJ" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="h6B-5y-24k"/>
-                        <viewControllerLayoutGuide type="bottom" id="jvH-ZE-iO7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="krH-nN-8C0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qkA-sa-Hjf">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="qkA-sa-Hjf" firstAttribute="width" secondItem="krH-nN-8C0" secondAttribute="width" id="Cmo-tO-9Wy"/>
-                            <constraint firstItem="qkA-sa-Hjf" firstAttribute="top" secondItem="h6B-5y-24k" secondAttribute="bottom" id="Dkv-3O-TJg"/>
-                            <constraint firstItem="jvH-ZE-iO7" firstAttribute="top" secondItem="qkA-sa-Hjf" secondAttribute="bottom" id="Rz7-4K-aOs"/>
-                            <constraint firstItem="qkA-sa-Hjf" firstAttribute="leading" secondItem="krH-nN-8C0" secondAttribute="leading" id="gp3-gj-cse"/>
-                            <constraint firstAttribute="trailing" secondItem="qkA-sa-Hjf" secondAttribute="trailing" id="nqS-tA-mPu"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="scrollView" destination="qkA-sa-Hjf" id="rml-DB-pel"/>
-                    </connections>
-                </viewController>
+                <viewController hidesBottomBarWhenPushed="YES" id="EQj-4v-jDJ" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1B-HY-Ee7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4984.8000000000002" y="-430.88455772113946"/>
