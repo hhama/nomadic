@@ -34,6 +34,10 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         scrollView.frame.size = CGSize(width: screenWidth, height: screenHeight)
         scrollView.center = self.view.center
 
+        // 新たなViewを作る
+        let myView = UIView()
+        myView.frame.size = CGSize(width: screenWidth, height: 1000)
+        
         // 中身の大きさを設定
         scrollView.contentSize = CGSize(width: screenWidth, height: 1000)
         
@@ -49,15 +53,16 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
 
         for entry in dicEntryArray {
             if entry.id == id {
-                printEntry(entry: entry, scrollView: scrollView)
+                printEntry(entry: entry, scrollView: myView)
             }
         }
         
+        scrollView.addSubview(myView)
         self.view.addSubview(scrollView)
     }
     
     // 画面を作る
-    func printEntry(entry: DicEntry, scrollView: UIScrollView){
+    func printEntry(entry: DicEntry, scrollView: UIView){
 
         // チベット語名称
         let tnameLabel = UILabel()
