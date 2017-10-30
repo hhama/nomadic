@@ -13,6 +13,8 @@ import RealmSwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var rootRef: DatabaseReference!
+    var activityIndicator: UIActivityIndicatorView!
+    var grayView: UIView!
     
     let categories = [
         "営地と放牧地",
@@ -52,8 +54,40 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         categoryTableView.delegate = self
         categoryTableView.dataSource = self
+
+        // 薄い灰色のViewをかぶせる
+        grayView = UIView()
+        grayView.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: self.view.frame.size.height)
+        grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        grayView.center = self.view.center
         
-        setupDictionary()
+        // ActivityIndicatorを作成＆中央に配置
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        activityIndicator.center = self.view.center
+        
+        // クルクルをストップした時に非表示する
+        activityIndicator.hidesWhenStopped = true
+        
+        // 色・大きさを設定
+        activityIndicator.activityIndicatorViewStyle = .whiteLarge
+        activityIndicator.color = UIColor.green
+        
+        //Viewに追加
+        grayView.addSubview(activityIndicator)
+        self.view.addSubview(grayView)
+        
+        self.view.bringSubview(toFront: grayView)
+        
+        DispatchQueue.global().async {
+            self.activityIndicator.startAnimating() // クルクルスタート
+            self.setupDictionary()
+            
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating() // クルクルストップ
+                self.grayView.removeFromSuperview()
+            }
+        }
         
         // realmから辞書を読み込み
         // let realm = try! Realm()

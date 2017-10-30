@@ -31,8 +31,15 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
         var allTags:[String] = []
         for dicEntry in dicEntryArray {
             if dicEntry.bunrui1.contains(category) || dicEntry.bunrui2.contains(category) || dicEntry.bunrui3.contains(category) {
-                allTags += dicEntry.tags.components(separatedBy: ",")
-                
+
+                if !dicEntry.tags.isEmpty {
+                    // 全角,半角のスペースを削除
+                    let noSpaceTags = dicEntry.tags.replacingOccurrences(of: " ", with: "")
+                    let noAllSpaceTags = noSpaceTags.replacingOccurrences(of: "　", with: "")
+
+                    // コンマでsplit
+                    allTags += noAllSpaceTags.components(separatedBy: ",")
+                }
             }
         }
 
@@ -58,13 +65,13 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
         if indexPath.row == 0 {
             
             cell.textLabel?.text = "\(categoryId) : " + category
-            cell.textLabel?.textColor = UIColor.lightGray
+            //cell.textLabel?.textColor = UIColor.lightGray
             cell.backgroundColor = UIColor.white
         } else {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
 
             cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-            cell.textLabel?.text = "\(indexPath.row) : " + tagsArray[indexPath.row - 1]
+            cell.textLabel?.text = tagsArray[indexPath.row - 1]
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
 

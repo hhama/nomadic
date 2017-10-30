@@ -33,12 +33,14 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
                 allSelectedData.append(entry)
             }
         }
+        //print("DEBUG_PRINT: category:\(category) tag:\(tag) ... data数:\(allSelectedData.count)")
+        
     }
 
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allSelectedData.count
+        return allSelectedData.count + 1
     }
     
     // 各セルの内容を返すメソッド
@@ -47,14 +49,31 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectedDataCell", for: indexPath)
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
+        if indexPath.row == 0 {
             
-        cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-        cell.textLabel?.text = "\(allSelectedData[indexPath.row].id) : " + allSelectedData[indexPath.row].tname
-        cell.detailTextLabel?.text = allSelectedData[indexPath.row].jname
-        cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+            cell.textLabel?.text = tag
+            cell.textLabel?.textAlignment = NSTextAlignment.center
+            cell.detailTextLabel?.text = ""
+            //cell.textLabel?.textColor = UIColor.lightGray
+            cell.backgroundColor = UIColor.white
+        } else {
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            
+            cell.textLabel!.font = UIFont(name: "Arial", size: 14)
+            cell.textLabel?.text = "\(allSelectedData[indexPath.row - 1].id) : " + allSelectedData[indexPath.row - 1].tname
+            cell.detailTextLabel?.text = allSelectedData[indexPath.row - 1].jname
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+       }
         
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        if indexPath.row == 0 {
+            return nil
+        } else {
+            return indexPath
+        }
     }
 
     // MARK: UITableViewDelegateプロトコルのメソッド
@@ -69,7 +88,7 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
         
         if segue.identifier == "detailCellSegue" {
             let indexPath = self.selectedDataTableView.indexPathForSelectedRow
-            detailViewController.id = allSelectedData[indexPath!.row].id
+            detailViewController.id = allSelectedData[indexPath!.row - 1].id
         }
     }
     

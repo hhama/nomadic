@@ -21,17 +21,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tibetan Nomadic Dictionary" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26G-pt-P8k">
-                                <rect key="frame" x="45.5" y="320" width="285" height="27.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="Uld-Yq-ZOk">
+                                <rect key="frame" x="67" y="213.5" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ovz-iM-YLY"/>
+                                    <constraint firstAttribute="height" constant="240" id="ypz-a4-NyN"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="འབྲོག་པའི་ཚིག་མཛོད་བཞུགས་སོ།" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6G-NG-1AM">
+                                <rect key="frame" x="94.5" y="453.5" width="185" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.63389006461290243" green="0.95215970277786255" blue="0.93979919887819352" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="26G-pt-P8k" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="SeS-XK-fuG"/>
-                            <constraint firstItem="26G-pt-P8k" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="cdK-aU-eER"/>
+                            <constraint firstItem="o6G-NG-1AM" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ZyR-kY-TS4"/>
+                            <constraint firstItem="Uld-Yq-ZOk" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="eP6-bb-seV"/>
+                            <constraint firstItem="o6G-NG-1AM" firstAttribute="top" secondItem="Uld-Yq-ZOk" secondAttribute="bottom" id="fRw-0i-Fbb"/>
+                            <constraint firstItem="Uld-Yq-ZOk" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rJh-8S-V5k"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -40,4 +49,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="girl" width="380" height="380"/>
+    </resources>
 </document>

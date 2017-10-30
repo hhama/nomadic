@@ -28,7 +28,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         let dicEntryArray = realm.objects(DicEntry.self)
 
         let scrollView = UIScrollView()
-        scrollView.backgroundColor = UIColor.lightGray
+        scrollView.backgroundColor = UIColor.white
         
         // 表示窓のサイズと位置を設定
         scrollView.frame.size = CGSize(width: screenWidth, height: screenHeight)
@@ -36,34 +36,39 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
 
         // 新たなViewを作る
         let myView = UIView()
-        myView.frame.size = CGSize(width: screenWidth, height: 1000)
         
         // 中身の大きさを設定
-        scrollView.contentSize = CGSize(width: screenWidth, height: 1000)
         
         // スクロールの跳ね返り
         scrollView.bounces = true
         
         // スクロールバーの見た目と余白
-        scrollView.indicatorStyle = .white
-        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        scrollView.indicatorStyle = .default
+        scrollView.scrollIndicatorInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         
         // Delegate を設定
         scrollView.delegate = self
 
+        var allHeight: CGFloat = 0.0
         for entry in dicEntryArray {
             if entry.id == id {
-                printEntry(entry: entry, scrollView: myView)
+                allHeight = printEntry(entry: entry, scrollView: myView)
             }
         }
         
+        scrollView.contentSize = CGSize(width: screenWidth, height: allHeight)
+        myView.frame.size = CGSize(width: screenWidth, height: allHeight)
+        
         scrollView.addSubview(myView)
         self.view.addSubview(scrollView)
-    }
+   }
     
     // 画面を作る
-    func printEntry(entry: DicEntry, scrollView: UIView){
+    func printEntry(entry: DicEntry, scrollView: UIView) -> CGFloat {
 
+        // 全要素の高さの和を求める
+        var allHeight:CGFloat = 0.0
+        
         // チベット語名称
         let tnameLabel = UILabel()
         tnameLabel.text = "\(id): \(entry.tname)"
@@ -80,7 +85,11 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         tnameLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 10.0)
         tnameLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
         tnameLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
-
+        
+        tnameLabel.sizeToFit()
+        var labelHeight = tnameLabel.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.greatestFiniteMagnitude)).height
+        allHeight += labelHeight + 10.0 // 10.0はInset
+        
         var preLabel: UILabel = tnameLabel
         
         // Wylie表記
@@ -99,6 +108,10 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         wylieLabel.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
         wylieLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
         
+        wylieLabel.sizeToFit()
+        labelHeight = wylieLabel.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.greatestFiniteMagnitude)).height
+        allHeight += labelHeight + 10.0 // 10.0はInset
+
         preLabel = wylieLabel
         
         // 品詞
@@ -137,6 +150,11 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
 
         preLabel = jnameLabel
 
+        jnameLabel.sizeToFit()
+        labelHeight = jnameLabel.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.greatestFiniteMagnitude)).height
+        allHeight += labelHeight + 10.0 // 10.0はInset
+        
+        
         // 英語名称があった場合
         if !entry.eng.isEmpty{
             let engLabel = UILabel()
@@ -150,6 +168,10 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             engLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
 
             preLabel = engLabel
+
+            engLabel.sizeToFit()
+            labelHeight = engLabel.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.greatestFiniteMagnitude)).height
+            allHeight += labelHeight + 10.0 // 10.0はInset
         }
         
         // 中国語名称があった場合
@@ -165,6 +187,10 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             chnLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
             
             preLabel = chnLabel
+
+            chnLabel.sizeToFit()
+            labelHeight = chnLabel.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.greatestFiniteMagnitude)).height
+            allHeight += labelHeight + 10.0 // 10.0はInset
         }
         
         // 解説があった場合
@@ -198,6 +224,12 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             expLabel.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
             
             preLabel = expLabel
+            
+            expLabel.sizeToFit()
+            labelHeight = expLabel.sizeThatFits(CGSize(width: screenSize.width - 40, height: CGFloat.greatestFiniteMagnitude)).height
+            allHeight += labelHeight + 10.0 // 10.0はInset
+            //print("DEBUG_PRINT: expLabel: \(labelHeight)")
+
         }
         
         // 画像があった場合
@@ -221,6 +253,9 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             imageView.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
 
             preImageView = imageView // ダミー
+            
+            imageView.sizeToFit()
+            allHeight += imageView.frame.size.height + 10.0 // 10.0はInset
         }
         
         // 画像があった場合(スクロールさせるためのダミー)
@@ -241,26 +276,42 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             imageView.autoPinEdge(.top, to: .bottom, of: preImageView!, withOffset: 10.0)
             imageView.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
             imageView.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
+
+            imageView.sizeToFit()
+            allHeight += imageView.frame.size.height + 10.0 // 10.0はInset
         }
-   }
+        
+        // bottomの位置を表示
+        // print("DEBUG_PRINT: allHeight: \(allHeight)")
+        // return allHeight + (self.navigationController?.navigationBar.frame.size.height)!;
+        return allHeight;
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    /*
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.layoutBlueRect()
+        self.layoutRedRect()
+    }
+     */
+    
     /* 以下は UIScrollViewDelegate のメソッド */
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // スクロール中の処理
-        print("didScroll")
+        // print("didScroll")
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         // ドラッグ開始時の処理
-        print("beginDragging")
+        // print("beginDragging")
     }
-    
+
    /*
     // MARK: - Navigation
 

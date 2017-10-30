@@ -11,5 +11,5 @@ import Foundation
 struct Const {
     static let DataPath = "data"
     static let UpdatePath = "update"
-    static let DataLength = 28
+    static let DataLength = 3002
 }
