@@ -15,4 +15,6 @@ target 'nomadic' do
   pod 'SVProgressHUD'
   pod 'PureLayout', '3.0.2'
   pod 'CopyableLabel', '~> 3.1'
+  pod 'ReachabilitySwift'
+
 end

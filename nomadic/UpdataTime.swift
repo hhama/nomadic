@@ -9,7 +9,7 @@
 import RealmSwift
 
 class UpdateTime: Object {
-    // Realm内の辞書をアップデートしたUNIX時間
+    // 現在Realm内に入っている辞書のバージョン(UNIX時間)
     dynamic var updateTime = 0
 }
 
