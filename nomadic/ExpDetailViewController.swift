@@ -20,8 +20,15 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
     var grayView: UIView!
     var dataReadLabel: UILabel!
     
+    var tabBarItemONE: UITabBarItem = UITabBarItem()
+    var tabBarItemTWO: UITabBarItem = UITabBarItem()
+    var tabBarItemTHREE: UITabBarItem = UITabBarItem()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        expDetailWebView.delegate = self
         
         self.navigationItem.title = expTitle
         
@@ -64,7 +71,7 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
             grayView.addSubview(activityIndicator)
             view.addSubview(grayView)
             self.activityIndicator.startAnimating() // クルクルスタート
-
+            
             let url: NSURL = NSURL(string: expUrl)!
             let request: URLRequest = URLRequest(url: url as URL)
             expDetailWebView.loadRequest(request)

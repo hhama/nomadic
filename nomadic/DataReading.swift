@@ -20,8 +20,13 @@ class DataReading: UIViewController {
     
     var dataLength = 0; // Firebaseから読み込むデータの長さ
     
+    var tabBarItemONE: UITabBarItem = UITabBarItem()
+    var tabBarItemTWO: UITabBarItem = UITabBarItem()
+    var tabBarItemTHREE: UITabBarItem = UITabBarItem()
+    
+    
     func dataReading(view: UIView) {
-
+        
         // 通信できるかどうかのチェック
         let reachability = Reachability()
         // print("DEBUG_PRINT: \(String(describing: reachability?.currentReachabilityString))")
@@ -75,6 +80,21 @@ class DataReading: UIViewController {
                 
                 DispatchQueue.main.async {
                     self.activityIndicator.startAnimating() // クルクルスタート
+                    
+                    // UITabBarのボタンを押せなくする
+                    let tabBarControllerItems = self.tabBarController?.tabBar.items
+                    
+                    if let arrayOfTabBarItems = tabBarControllerItems as AnyObject as? NSArray{
+                        self.tabBarItemONE = arrayOfTabBarItems[0] as! UITabBarItem
+                        self.tabBarItemONE.isEnabled = false
+                        
+                        self.tabBarItemTWO = arrayOfTabBarItems[1] as! UITabBarItem
+                        self.tabBarItemTWO.isEnabled = false
+                        
+                        self.tabBarItemTHREE = arrayOfTabBarItems[2] as! UITabBarItem
+                        self.tabBarItemTHREE.isEnabled = false
+                    }
+
                 }
             }
         } else {
@@ -107,6 +127,11 @@ class DataReading: UIViewController {
             
             self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
+
+            // UITabBarのボタンを押せるようにする
+            self.tabBarItemONE.isEnabled = true
+            self.tabBarItemTWO.isEnabled = true
+            self.tabBarItemTHREE.isEnabled = true
             
             if let postDict = snapshot.value as? NSDictionary {
                 
