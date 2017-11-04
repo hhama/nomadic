@@ -233,52 +233,39 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         }
         
         // 画像があった場合
-        var preImageView:UIImageView? = nil// ダミー
+        var preImageView:UIImageView?
+        var imageViewArray:[UIImageView] = []
         if !entry.image.isEmpty {
-            let image = UIImage(data: NSData(base64Encoded: entry.image, options: .ignoreUnknownCharacters)! as Data)
+            
+            let imageDataArray = entry.image.components(separatedBy: ",")
+            
+            for idx in 0..<imageDataArray.count {
+                let image = UIImage(data: NSData(base64Encoded: imageDataArray[idx], options: .ignoreUnknownCharacters)! as Data)
+                
+                // UIImageView 初期化
+                imageViewArray.append(UIImageView(image:image))
+                
+                // UIImageviewを角丸にする
+                imageViewArray[idx].clipsToBounds = true;
+                imageViewArray[idx].contentMode = UIViewContentMode.scaleAspectFill
+                imageViewArray[idx].layer.cornerRadius = 10.0;
+                
+                // UIImageViewのインスタンスをビューに追加
+                scrollView.addSubview(imageViewArray[idx])
 
-            // UIImageView 初期化
-            let imageView = UIImageView(image:image)
-
-            // UIImageviewを角丸にする
-            imageView.clipsToBounds = true;
-            imageView.contentMode = UIViewContentMode.scaleAspectFill
-            imageView.layer.cornerRadius = 10.0;
-            
-            // UIImageViewのインスタンスをビューに追加
-            scrollView.addSubview(imageView)
-            
-            imageView.autoPinEdge(.top, to: .bottom, of: preLabel, withOffset: 10.0)
-            imageView.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
-            imageView.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
-
-            preImageView = imageView // ダミー
-            
-            imageView.sizeToFit()
-            allHeight += imageView.frame.size.height + 10.0 // 10.0はInset
-        }
-        
-        // 画像があった場合(スクロールさせるためのダミー)
-        if !entry.image.isEmpty {
-            let image = UIImage(data: NSData(base64Encoded: entry.image, options: .ignoreUnknownCharacters)! as Data)
-            
-            // UIImageView 初期化
-            let imageView = UIImageView(image:image)
-            
-            // UIImageviewを角丸にする
-            imageView.clipsToBounds = true;
-            imageView.contentMode = UIViewContentMode.scaleAspectFill
-            imageView.layer.cornerRadius = 10.0;
-            
-            // UIImageViewのインスタンスをビューに追加
-            scrollView.addSubview(imageView)
-            
-            imageView.autoPinEdge(.top, to: .bottom, of: preImageView!, withOffset: 10.0)
-            imageView.autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
-            imageView.autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
-
-            imageView.sizeToFit()
-            allHeight += imageView.frame.size.height + 10.0 // 10.0はInset
+                if idx == 0 {
+                    imageViewArray[idx].autoPinEdge(.top, to: .bottom, of: preLabel, withOffset: 10.0)
+                } else {
+                    imageViewArray[idx].autoPinEdge(.top, to: .bottom, of: preImageView!, withOffset: 10.0)
+                }
+                imageViewArray[idx].autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
+                imageViewArray[idx].autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
+                
+                preImageView = imageViewArray[idx]
+                
+                imageViewArray[idx].sizeToFit()
+                allHeight += imageViewArray[idx].frame.size.height + 10.0 // 10.0はInset
+            }
         }
         
         // bottomの位置を表示

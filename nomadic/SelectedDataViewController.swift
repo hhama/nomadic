@@ -14,6 +14,7 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
     @IBOutlet weak var selectedDataTableView: UITableView!
     
     var category = ""
+    var categoryId = 0
     var tag = ""
     
     var allSelectedData:[DicEntry] = []
@@ -51,7 +52,7 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
         
         if indexPath.row == 0 {
             
-            cell.textLabel?.text = tag
+            cell.textLabel?.text = "\(categoryId) : \(category) > \(tag)"
             cell.textLabel?.textAlignment = NSTextAlignment.center
             cell.detailTextLabel?.text = ""
             //cell.textLabel?.textColor = UIColor.lightGray

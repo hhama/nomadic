@@ -18,6 +18,8 @@ class DataReading: UIViewController {
     var grayView: UIView!
     var dataReadLabel: UILabel!
     
+    var dataLength = 0; // Firebaseから読み込むデータの長さ
+    
     func dataReading(view: UIView) {
 
         // 通信できるかどうかのチェック
@@ -57,7 +59,7 @@ class DataReading: UIViewController {
             
 
             dataReadLabel = UILabel()
-            dataReadLabel.text = "データ確認中"
+            dataReadLabel.text = "データ更新中"
             dataReadLabel.sizeToFit()
             dataReadLabel.center = view.center
             
@@ -69,10 +71,10 @@ class DataReading: UIViewController {
             view.bringSubview(toFront: grayView)
             
             DispatchQueue.global().async {
-                self.activityIndicator.startAnimating() // クルクルスタート
                 self.setupDictionary()
                 
                 DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating() // クルクルスタート
                 }
             }
         } else {
@@ -109,6 +111,7 @@ class DataReading: UIViewController {
             if let postDict = snapshot.value as? NSDictionary {
                 
                 let firebaseTime = postDict[Const.UpdatePath] as! Int
+                self.dataLength = postDict[Const.DataLengthPath] as! Int
                 
                 let realm = try! Realm()
                 let updateTimeArray = realm.objects(UpdateTime.self)
@@ -151,11 +154,7 @@ class DataReading: UIViewController {
     // RealmにFirebaseの辞書を読み込む
     func readingDictionary(){
         
-        // ラベルのテキストを変える
-        self.dataReadLabel.text = "データ読込中"
-        // dataReadLabel.sizeToFit()
-        
-        // 現在持っている辞書の削除
+       // 現在持っている辞書の削除
         let realm = try! Realm()
         let dicEntryArray = realm.objects(DicEntry.self)
         if !dicEntryArray.isEmpty {
@@ -168,7 +167,7 @@ class DataReading: UIViewController {
         
         print("DEBUG_PRINT: in readingDictionary()")
         rootRef = Database.database().reference()
-        for idx in 0..<Const.DataLength {
+        for idx in 0..<self.dataLength {
             let path = Const.DataPath + "/" + String(idx)
             let defaultPlace = rootRef.child(path)
             

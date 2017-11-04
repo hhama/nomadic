@@ -14,7 +14,7 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
     var category = ""
     var categoryId = 0
     
-    var tagsArray:[String] = []
+    var sortedTagsArray:[String] = []
     
     @IBOutlet weak var tagsTableView: UITableView!
     
@@ -46,14 +46,15 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
         if !allTags.isEmpty {
             //allItem内の重複する要素を取り除く
             let orderedSet = NSOrderedSet(array: allTags)
-            tagsArray = orderedSet.array as! [String]
+            let tagsArray = orderedSet.array as! [String]
+            sortedTagsArray = tagsArray.sorted()
         }
     }
 
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tagsArray.count + 1
+        return sortedTagsArray.count + 1
     }
     
     // 各セルの内容を返すメソッド
@@ -71,7 +72,7 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.selectionStyle = UITableViewCellSelectionStyle.none
 
             cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-            cell.textLabel?.text = tagsArray[indexPath.row - 1]
+            cell.textLabel?.text = sortedTagsArray[indexPath.row - 1]
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
 
@@ -99,7 +100,8 @@ class TagsViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == "tagsCellSegue" {
             let indexPath = self.tagsTableView.indexPathForSelectedRow
             selectedDataViewController.category = category
-            selectedDataViewController.tag = tagsArray[indexPath!.row - 1]
+            selectedDataViewController.categoryId = categoryId
+            selectedDataViewController.tag = sortedTagsArray[indexPath!.row - 1]
         }
     }
     

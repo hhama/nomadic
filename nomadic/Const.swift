@@ -11,5 +11,7 @@ import Foundation
 struct Const {
     static let DataPath = "data"
     static let UpdatePath = "update"
-    static let DataLength = 3002
+    static let DataLengthPath = "datalength"
+    static let ExpUrl = ["https://firebasestorage.googleapis.com/v0/b/nomadic-c71e9.appspot.com/o/cheese.html?alt=media&token=ad5be2b8-95f4-4514-8aa9-3fba6a8d493d"]
+    static let ExpTitle = ["チーズの作り方"]
 }

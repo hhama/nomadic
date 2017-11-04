@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         "家畜表現",
         "放牧作業",
         "個体管理",
-        "屠殺",
+        "屠畜・解体",
         "交尾・出産・去勢",
         "搾乳と乳加工",
         "食肉加工と部位名称",
@@ -51,11 +51,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let dataReading = DataReading()
         dataReading.dataReading(view: self.view)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        //        let dataReading = DataReading()
-        //        dataReading.dataReading(view: self.view)
     }
 
     // MARK: UITableViewDataSourceプロトコルのメソッド
