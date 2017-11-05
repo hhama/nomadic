@@ -221,14 +221,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // データベース側のUpdate時間を取得
         rootRef.observeSingleEvent(of: DataEventType.value, with: { snapshot in
             
-            self.activityIndicator.stopAnimating() // クルクルストップ
-            self.grayView.removeFromSuperview()
-            
-            // UITabBarのボタンを押せるようにする
-            self.tabBarItemONE.isEnabled = true
-            self.tabBarItemTWO.isEnabled = true
-            self.tabBarItemTHREE.isEnabled = true
-            
             if let postDict = snapshot.value as? NSDictionary {
                 
                 let firebaseTime = postDict[Const.UpdatePath] as! Int
@@ -253,19 +245,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                     print("DEBUG_PRINT: 辞書がなくて辞書更新")
                     self.readingDictionary()
-                } else {
-                    if firebaseTime > updateTimeArray[0].updateTime {
-                        // realm側の更新時刻をFirebase側の時刻で更新
-                        if let realmTime = updateTimeArray.first {
-                            // UpdateTimeの更新
-                            try! realm.write {
-                                realmTime.updateTime = firebaseTime
-                            }
+                } else if firebaseTime > updateTimeArray[0].updateTime {
+                    // realm側の更新時刻をFirebase側の時刻で更新
+                    if let realmTime = updateTimeArray.first {
+                        // UpdateTimeの更新
+                        try! realm.write {
+                            realmTime.updateTime = firebaseTime
                         }
-                        
-                        print("DEBUG_PRINT: 更新時間で辞書更新")
-                        self.readingDictionary()
                     }
+                    
+                    print("DEBUG_PRINT: 更新時間で辞書更新")
+                    self.readingDictionary()
+                } else {
+                    // 辞書を読み込む必要なし
+
+                    print("DEBUG_PRINT: 辞書を読み込まない時、ここでクルクルストップ!")
+                    self.activityIndicator.stopAnimating() // クルクルストップ
+                    self.grayView.removeFromSuperview()
+                    
+                    // UITabBarのボタンを押せるようにする
+                    print("DEBUG_PRINT: 辞書を読み込まない時、ここでTabボタンが押せるようになる!")
+                    self.tabBarItemONE.isEnabled = true
+                    self.tabBarItemTWO.isEnabled = true
+                    self.tabBarItemTHREE.isEnabled = true
+
                 }
             }
         })
@@ -330,7 +333,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
         })
 
-        // 用語解説のデータ読み込み
+        // 用語解説のURLリストの読み込み
         let urlPlace = Database.database().reference().child(Const.ExpUrlPath)
         urlPlace.observeSingleEvent(of: .value, with: { snapshot in
             
@@ -343,7 +346,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     entry.url = expUrl["url"] as! String? ?? ""
                     entry.title = expUrl["title"] as! String? ?? ""
                     
-                    print("URL: \(entry.url), Title: \(entry.title)")
+                    // print("URL: \(entry.url), Title: \(entry.title)")
                     
                     // データを追加
                     let realm = try! Realm()
@@ -352,8 +355,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
             }
+            print("DEBUG_PRINT: 辞書読み込み時、ここでクルクルストップ!")
             self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
+
+            // UITabBarのボタンを押せるようにする
+            print("DEBUG_PRINT: 辞書読み込み時、ここでTabボタンが押せるようになる!")
+            self.tabBarItemONE.isEnabled = true
+            self.tabBarItemTWO.isEnabled = true
+            self.tabBarItemTHREE.isEnabled = true
+            
         })
     }
 
