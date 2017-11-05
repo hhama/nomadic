@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ExpViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -17,6 +18,7 @@ class ExpViewController: UIViewController, UITableViewDelegate, UITableViewDataS
 
         expTableView.delegate = self
         expTableView.dataSource = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -27,13 +29,20 @@ class ExpViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     // MARK: UITableViewDataSourceプロトコルのメソッド
     // データの数（＝セルの数）を返すメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Const.ExpUrl.count
+        let realm = try! Realm()
+        let expUrlArray = realm.objects(ExpUrl.self)
+        
+        return expUrlArray.count
     }
 
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能な cell を得る
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExpCell", for: indexPath)
+
+        // RealmからExpUrlを読む
+        let realm = try! Realm()
+        let expUrlArray = realm.objects(ExpUrl.self)
         
         // マージンをなくす
         cell.layoutMargins = UIEdgeInsets.zero
@@ -41,7 +50,7 @@ class ExpViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-        cell.textLabel?.text = "\(indexPath.row + 1) : " + Const.ExpTitle[indexPath.row]
+        cell.textLabel?.text = "\(indexPath.row + 1) : " + expUrlArray[indexPath.row].title
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         cell.backgroundColor = UIColor.white
         
@@ -57,11 +66,15 @@ class ExpViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     // segue で画面遷移する時に呼ばれる
     override func prepare(for segue: UIStoryboardSegue, sender: Any?){
         let expDetailViewController:ExpDetailViewController = segue.destination as! ExpDetailViewController
-        
+
+        // RealmからExpUrlを読む
+        let realm = try! Realm()
+        let expUrlArray = realm.objects(ExpUrl.self)
+
         if segue.identifier == "expCellSegue" {
             let indexPath = self.expTableView.indexPathForSelectedRow
-            expDetailViewController.expUrl = Const.ExpUrl[indexPath!.row]
-            expDetailViewController.expTitle = Const.ExpTitle[indexPath!.row]
+            expDetailViewController.expUrl = expUrlArray[indexPath!.row].url
+            expDetailViewController.expTitle = expUrlArray[indexPath!.row].title
         }
     }
 

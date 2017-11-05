@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import RealmSwift
+import ReachabilitySwift
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -41,16 +45,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         "新しい政策・技術・道具",
     ]
     
-    @IBOutlet weak var categoryTableView: UITableView!
+    var rootRef: DatabaseReference!
+    var activityIndicator: UIActivityIndicatorView!
+    var grayView: UIView!
+    var dataReadLabel: UILabel!
     
+    var dataLength = 0; // Firebaseから読み込むデータの長さ
+    
+    var tabBarItemONE: UITabBarItem = UITabBarItem()
+    var tabBarItemTWO: UITabBarItem = UITabBarItem()
+    var tabBarItemTHREE: UITabBarItem = UITabBarItem()
+
+    @IBOutlet weak var categoryTableView: UITableView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // アプリがForegroundになった通知を受け取る
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.viewWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
         categoryTableView.delegate = self
         categoryTableView.dataSource = self
-        
-        let dataReading = DataReading()
-        dataReading.dataReading(view: self.view)
+
+        dataReading()
+
+    }
+    
+    func viewWillEnterForeground(_ notification: NSNotification?) {
+        if (self.isViewLoaded && (self.view.window != nil)) {
+            dataReading()
+        }
     }
 
     // MARK: UITableViewDataSourceプロトコルのメソッド
@@ -96,6 +120,241 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tagsViewController.category = categories[indexPath!.row]
             tagsViewController.categoryId = indexPath!.row + 1
         }
+    }
+
+    func dataReading() {
+        
+        // 通信できるかどうかのチェック
+        let reachability = Reachability()
+        // print("DEBUG_PRINT: \(String(describing: reachability?.currentReachabilityString))")
+        
+        // Realm内にデータが有るかどうかのチェック
+        let realm = try! Realm()
+        let updateTimeArray = realm.objects(UpdateTime.self)
+        
+        if updateTimeArray.isEmpty && reachability?.currentReachabilityString == "No Connection" {
+            // Alertを出す
+            showAlert()
+            // print("DEBUG_PRINT: No Connection!")
+        } else if (reachability?.currentReachabilityString != "No Connection")  {
+            print("DEBUG_PRINT: Connected!")
+            
+            // FirebaseApp.configure()
+            
+            // 薄い灰色のViewをかぶせる
+            grayView = UIView()
+            grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+            grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+            grayView.center = view.center
+            
+            // ActivityIndicatorを作成＆中央に配置
+            activityIndicator = UIActivityIndicatorView()
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+            activityIndicator.center = view.center
+            
+            // クルクルをストップした時に非表示する
+            activityIndicator.hidesWhenStopped = true
+            
+            // 色・大きさを設定
+            activityIndicator.activityIndicatorViewStyle = .whiteLarge
+            activityIndicator.color = UIColor.white
+            
+            
+            dataReadLabel = UILabel()
+            dataReadLabel.text = "データ更新中"
+            dataReadLabel.sizeToFit()
+            dataReadLabel.center = view.center
+            
+            //Viewに追加
+            grayView.addSubview(dataReadLabel)
+            grayView.addSubview(activityIndicator)
+            view.addSubview(grayView)
+            
+            view.bringSubview(toFront: grayView)
+            
+            DispatchQueue.global().async {
+                self.setupDictionary()
+                
+                DispatchQueue.main.async {
+                    self.activityIndicator.startAnimating() // クルクルスタート
+                    
+                    // UITabBarのボタンを押せなくする
+                    let tabBarControllerItems = self.tabBarController?.tabBar.items
+                    
+                    if let arrayOfTabBarItems = tabBarControllerItems as AnyObject as? NSArray{
+                        self.tabBarItemONE = arrayOfTabBarItems[0] as! UITabBarItem
+                        self.tabBarItemONE.isEnabled = false
+                        
+                        self.tabBarItemTWO = arrayOfTabBarItems[1] as! UITabBarItem
+                        self.tabBarItemTWO.isEnabled = false
+                        
+                        self.tabBarItemTHREE = arrayOfTabBarItems[2] as! UITabBarItem
+                        self.tabBarItemTHREE.isEnabled = false
+                    }
+                }
+            }
+        } else {
+            print("DEBUG_PRINT: Others!")
+        }
+    }
+    
+    // アラート表示を出す
+    func showAlert() {
+        
+        // アラートを作成
+        let alert = UIAlertController(
+            title: "通信できません。",
+            message: "ホームボタンを押して、終了してください。",
+            preferredStyle: .alert)
+        
+        // アラートにボタンをつける
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        // アラート表示
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setupDictionary() {
+        
+        rootRef = Database.database().reference()
+        
+        // データベース側のUpdate時間を取得
+        rootRef.observeSingleEvent(of: DataEventType.value, with: { snapshot in
+            
+            self.activityIndicator.stopAnimating() // クルクルストップ
+            self.grayView.removeFromSuperview()
+            
+            // UITabBarのボタンを押せるようにする
+            self.tabBarItemONE.isEnabled = true
+            self.tabBarItemTWO.isEnabled = true
+            self.tabBarItemTHREE.isEnabled = true
+            
+            if let postDict = snapshot.value as? NSDictionary {
+                
+                let firebaseTime = postDict[Const.UpdatePath] as! Int
+                
+                let realm = try! Realm()
+                let updateTimeArray = realm.objects(UpdateTime.self)
+                
+                if !updateTimeArray.isEmpty {
+                    print("Firebase: \(firebaseTime) <--> Realm: \(updateTimeArray[0].updateTime)")
+                }
+                
+                if updateTimeArray.isEmpty {
+                    // 一番最初のアプリ起動時にRealmの更新時間を書き込む
+                    
+                    // realm側の更新時刻をFirebase側の時刻で更新
+                    let realmTime = UpdateTime()
+                    realmTime.updateTime = firebaseTime
+                    
+                    // UpdateTimeの書き込み
+                    try! realm.write {
+                        realm.add(realmTime)
+                    }
+                    print("DEBUG_PRINT: 辞書がなくて辞書更新")
+                    self.readingDictionary()
+                } else {
+                    if firebaseTime > updateTimeArray[0].updateTime {
+                        // realm側の更新時刻をFirebase側の時刻で更新
+                        if let realmTime = updateTimeArray.first {
+                            // UpdateTimeの更新
+                            try! realm.write {
+                                realmTime.updateTime = firebaseTime
+                            }
+                        }
+                        
+                        print("DEBUG_PRINT: 更新時間で辞書更新")
+                        self.readingDictionary()
+                    }
+                }
+            }
+        })
+    }
+    
+    // RealmにFirebaseの辞書と用語解説のURLデータを読み込む
+    func readingDictionary(){
+        
+        // 現在持っている辞書の削除
+        let realm = try! Realm()
+        let dicEntryArray = realm.objects(DicEntry.self)
+        if !dicEntryArray.isEmpty {
+            for entry in dicEntryArray {
+                try! realm.write {
+                    realm.delete(entry)
+                }
+            }
+        }
+
+        // 現在持っているURLリストの削除
+        let expUrlEntryArray = realm.objects(ExpUrl.self)
+        if !expUrlEntryArray.isEmpty {
+            for entry in expUrlEntryArray {
+                try! realm.write {
+                    realm.delete(entry)
+                }
+            }
+        }
+
+        print("DEBUG_PRINT: in readingDictionary()")
+        // 辞書の読み込み
+        let defaultPlace = Database.database().reference().child(Const.DataPath)
+        defaultPlace.observeSingleEvent(of: .value, with: { snapshot in
+            
+            if let postDictArray = snapshot.value as? [NSDictionary] {
+
+                for postDict in postDictArray {
+                    // 追加するデータを用意
+                    let dicEntry = DicEntry()
+                    dicEntry.id = postDict["id"] as! String? ?? ""
+                    dicEntry.jname = postDict["jname"] as! String? ?? ""
+                    dicEntry.tname = postDict["tname"] as! String? ?? ""
+                    dicEntry.wylie = postDict["wylie"] as! String? ?? ""
+                    dicEntry.tags = postDict["tags"] as! String? ?? ""
+                    dicEntry.image = postDict["image"] as! String? ?? ""
+                    dicEntry.eng = postDict["eng"] as! String? ?? ""
+                    dicEntry.chn = postDict["chn"] as! String? ?? ""
+                    dicEntry.kata = postDict["kata"] as! String? ?? ""
+                    dicEntry.pron = postDict["pron"] as! String? ?? ""
+                    dicEntry.verb = postDict["verb"] as! String? ?? ""
+                    dicEntry.exp = postDict["exp"] as! String? ?? ""
+                    dicEntry.bunrui1 = postDict["bunrui1"] as! String? ?? ""
+                    dicEntry.bunrui2 = postDict["bunrui2"] as! String? ?? ""
+                    dicEntry.bunrui3 = postDict["bunrui3"] as! String? ?? ""
+                    
+                    // データを追加
+                    let realm = try! Realm()
+                    try! realm.write() {
+                        realm.add(dicEntry)
+                    }
+                }
+            }
+        })
+
+        // 用語解説のデータ読み込み
+        let urlPlace = Database.database().reference().child(Const.ExpUrlPath)
+        urlPlace.observeSingleEvent(of: .value, with: { snapshot in
+            
+            
+            if let expUrlArray = snapshot.value as? [NSDictionary] {
+                
+                for expUrl in expUrlArray {
+                    // 追加するデータを用意
+                    let entry = ExpUrl()
+                    entry.url = expUrl["url"] as! String? ?? ""
+                    entry.title = expUrl["title"] as! String? ?? ""
+                    
+                    print("URL: \(entry.url), Title: \(entry.title)")
+                    
+                    // データを追加
+                    let realm = try! Realm()
+                    try! realm.write() {
+                        realm.add(entry)
+                    }
+                }
+            }
+            self.activityIndicator.stopAnimating() // クルクルストップ
+            self.grayView.removeFromSuperview()
+        })
     }
 
     override func didReceiveMemoryWarning() {

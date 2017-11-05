@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		18169708369C8B006BAF21AB /* Pods_nomadic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 398048A7DECC4E82121CD3EE /* Pods_nomadic.framework */; };
-		E10886731FA8A5B900D098BF /* DataReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10886721FA8A5B900D098BF /* DataReading.swift */; };
 		E114CF671F9E09FA0044C183 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114CF661F9E09FA0044C183 /* AppDelegate.swift */; };
 		E114CF691F9E09FA0044C183 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114CF681F9E09FA0044C183 /* ViewController.swift */; };
 		E114CF6C1F9E09FA0044C183 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6A1F9E09FA0044C183 /* Main.storyboard */; };
@@ -24,6 +23,7 @@
 		E1793D7A1FA0D5AB00DD3F84 /* SelectedDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1793D791FA0D5AB00DD3F84 /* SelectedDataViewController.swift */; };
 		E1A5382B1FA2020C000D2B3E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5382A1FA2020C000D2B3E /* SearchViewController.swift */; };
 		E1B876461FAD388D009DD4E7 /* ExpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */; };
+		E1B8764A1FAF0F5D009DD4E7 /* ExpUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */; };
 		E1BEC3A11FAC589400F93466 /* ExpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BEC3A01FAC589400F93466 /* ExpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,7 +31,6 @@
 		056B48777AE42AD676EB0087 /* Pods-nomadic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nomadic.release.xcconfig"; path = "Pods/Target Support Files/Pods-nomadic/Pods-nomadic.release.xcconfig"; sourceTree = "<group>"; };
 		398048A7DECC4E82121CD3EE /* Pods_nomadic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nomadic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		648DD2FABA2005C1F1AF834D /* Pods-nomadic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nomadic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-nomadic/Pods-nomadic.debug.xcconfig"; sourceTree = "<group>"; };
-		E10886721FA8A5B900D098BF /* DataReading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataReading.swift; sourceTree = "<group>"; };
 		E114CF631F9E09FA0044C183 /* nomadic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nomadic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E114CF661F9E09FA0044C183 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E114CF681F9E09FA0044C183 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		E1793D791FA0D5AB00DD3F84 /* SelectedDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedDataViewController.swift; sourceTree = "<group>"; };
 		E1A5382A1FA2020C000D2B3E /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpDetailViewController.swift; sourceTree = "<group>"; };
+		E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpUrl.swift; sourceTree = "<group>"; };
 		E1BEC3A01FAC589400F93466 /* ExpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -117,9 +117,9 @@
 				E1793D791FA0D5AB00DD3F84 /* SelectedDataViewController.swift */,
 				E149D1501FA156770038B68E /* DetailViewController.swift */,
 				E1A5382A1FA2020C000D2B3E /* SearchViewController.swift */,
-				E10886721FA8A5B900D098BF /* DataReading.swift */,
 				E1BEC3A01FAC589400F93466 /* ExpViewController.swift */,
 				E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */,
+				E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */,
 			);
 			path = nomadic;
 			sourceTree = "<group>";
@@ -254,8 +254,8 @@
 				E149D1511FA156770038B68E /* DetailViewController.swift in Sources */,
 				E114CF691F9E09FA0044C183 /* ViewController.swift in Sources */,
 				E1793D781FA0A70E00DD3F84 /* TagsViewController.swift in Sources */,
-				E10886731FA8A5B900D098BF /* DataReading.swift in Sources */,
 				E12C56841F9F781C00A0D987 /* UpdataTime.swift in Sources */,
+				E1B8764A1FAF0F5D009DD4E7 /* ExpUrl.swift in Sources */,
 				E1793D7A1FA0D5AB00DD3F84 /* SelectedDataViewController.swift in Sources */,
 				E15935531F9E16C5009D2369 /* NomadicData.swift in Sources */,
 				E114CF671F9E09FA0044C183 /* AppDelegate.swift in Sources */,
