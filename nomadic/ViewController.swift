@@ -45,7 +45,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         "新しい政策・技術・道具",
     ]
     
-    var rootRef: DatabaseReference!
     var activityIndicator: UIActivityIndicatorView!
     var grayView: UIView!
     var dataReadLabel: UILabel!
@@ -140,7 +139,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             print("DEBUG_PRINT: Connected!")
             
             // FirebaseApp.configure()
-            
+
             // 薄い灰色のViewをかぶせる
             grayView = UIView()
             grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
@@ -171,11 +170,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             view.addSubview(grayView)
             
             view.bringSubview(toFront: grayView)
-            
+
             DispatchQueue.global().async {
                 self.setupDictionary()
                 
                 DispatchQueue.main.async {
+
                     self.activityIndicator.startAnimating() // クルクルスタート
                     
                     // UITabBarのボタンを押せなくする
@@ -215,15 +215,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func setupDictionary() {
+        // Database.database().isPersistenceEnabled = true
         
-        rootRef = Database.database().reference()
+        let checkRef = Database.database().reference().child(Const.UpdatePath)
         
         // データベース側のUpdate時間を取得
-        rootRef.observeSingleEvent(of: DataEventType.value, with: { snapshot in
+        checkRef.observeSingleEvent(of: DataEventType.value, with: { snapshot in
             
-            if let postDict = snapshot.value as? NSDictionary {
+            //if let postDictArray = snapshot.value as? [NSDictionary] {
+            if let firebaseTime = snapshot.value as? Int {
                 
-                let firebaseTime = postDict[Const.UpdatePath] as! Int
+                //let firebaseTime = postDictArray[0]["update"] as! Int
+                //print("DEBUG_PRINT: \(String(describing: firebaseTime))")
                 
                 let realm = try! Realm()
                 let updateTimeArray = realm.objects(UpdateTime.self)
@@ -268,7 +271,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.tabBarItemONE.isEnabled = true
                     self.tabBarItemTWO.isEnabled = true
                     self.tabBarItemTHREE.isEnabled = true
-
                 }
             }
         })
@@ -355,6 +357,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     }
                 }
             }
+
             print("DEBUG_PRINT: 辞書読み込み時、ここでクルクルストップ!")
             self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
@@ -364,7 +367,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.tabBarItemONE.isEnabled = true
             self.tabBarItemTWO.isEnabled = true
             self.tabBarItemTHREE.isEnabled = true
-            
+
         })
     }
 
