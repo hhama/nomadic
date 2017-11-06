@@ -241,6 +241,24 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             
             for idx in 0..<imageDataArray.count {
                 let image = UIImage(data: NSData(base64Encoded: imageDataArray[idx], options: .ignoreUnknownCharacters)! as Data)
+                // print("DEBUG_PRINT(イメージの大きさ): \(String(describing: image?.size.width)) x \(String(describing: image?.size.height))")
+                
+                // UIImageViewの幅・高さ・Insetを求める。
+                var viewWidth:CGFloat = 0.0
+                var viewHeight:CGFloat = 0.0
+                var viewInset:CGFloat = 0.0
+                
+                let imageWidth = image?.size.width
+                let imageHeight = image?.size.height
+                if Double(imageWidth!) > Double(imageHeight!) {
+                    viewInset = view.frame.width * 0.05
+                    viewWidth = view.frame.width - viewInset * 2
+                    viewHeight = imageHeight! * viewWidth / imageWidth!
+                } else {
+                    viewInset = view.frame.width * 0.15
+                    viewWidth = view.frame.width - viewInset * 2
+                    viewHeight = imageHeight! * viewWidth / imageWidth!
+                }
                 
                 // UIImageView 初期化
                 imageViewArray.append(UIImageView(image:image))
@@ -258,13 +276,15 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
                 } else {
                     imageViewArray[idx].autoPinEdge(.top, to: .bottom, of: preImageView!, withOffset: 10.0)
                 }
-                imageViewArray[idx].autoPinEdge(toSuperviewEdge: .left, withInset: 20.0)
-                imageViewArray[idx].autoPinEdge(toSuperviewEdge: .right, withInset: 20.0)
+                imageViewArray[idx].autoSetDimension(.width, toSize: viewWidth)
+                imageViewArray[idx].autoSetDimension(.height, toSize: viewHeight)
+                imageViewArray[idx].autoPinEdge(toSuperviewEdge: .left, withInset: viewInset)
+                imageViewArray[idx].autoPinEdge(toSuperviewEdge: .right, withInset: viewInset)
                 
                 preImageView = imageViewArray[idx]
                 
                 imageViewArray[idx].sizeToFit()
-                allHeight += imageViewArray[idx].frame.size.height + 10.0 // 10.0はInset
+                allHeight += viewHeight + 10.0 // 10.0はInset
             }
         }
         
