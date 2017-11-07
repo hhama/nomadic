@@ -41,13 +41,13 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // 再利用可能な cell を得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath) as! CustomTableViewCell
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-        cell.textLabel?.text = "\(searchResult[indexPath.row].id) : \(searchResult[indexPath.row].tname)"
+        //cell.textLabel!.font = UIFont(name: "Arial", size: 14)
+        cell.myTnameLabel?.text = "\(searchResult[indexPath.row].id) : \(searchResult[indexPath.row].tname)"
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.detailTextLabel?.text = searchResult[indexPath.row].jname
+        cell.myJnameLabel?.text = searchResult[indexPath.row].jname
         
         return cell
     }

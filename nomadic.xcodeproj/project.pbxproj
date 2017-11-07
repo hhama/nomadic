@@ -24,6 +24,7 @@
 		E1A5382B1FA2020C000D2B3E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A5382A1FA2020C000D2B3E /* SearchViewController.swift */; };
 		E1B876461FAD388D009DD4E7 /* ExpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */; };
 		E1B8764A1FAF0F5D009DD4E7 /* ExpUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */; };
+		E1B8764C1FB0AC69009DD4E7 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B8764B1FB0AC69009DD4E7 /* CustomTableViewCell.swift */; };
 		E1BEC3A11FAC589400F93466 /* ExpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BEC3A01FAC589400F93466 /* ExpViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 		E1A5382A1FA2020C000D2B3E /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpDetailViewController.swift; sourceTree = "<group>"; };
 		E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpUrl.swift; sourceTree = "<group>"; };
+		E1B8764B1FB0AC69009DD4E7 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		E1BEC3A01FAC589400F93466 /* ExpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,6 +122,7 @@
 				E1BEC3A01FAC589400F93466 /* ExpViewController.swift */,
 				E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */,
 				E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */,
+				E1B8764B1FB0AC69009DD4E7 /* CustomTableViewCell.swift */,
 			);
 			path = nomadic;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 				E1793D7A1FA0D5AB00DD3F84 /* SelectedDataViewController.swift in Sources */,
 				E15935531F9E16C5009D2369 /* NomadicData.swift in Sources */,
 				E114CF671F9E09FA0044C183 /* AppDelegate.swift in Sources */,
+				E1B8764C1FB0AC69009DD4E7 /* CustomTableViewCell.swift in Sources */,
 				E12C56821F9F6BD200A0D987 /* DicEntry.swift in Sources */,
 				E1BEC3A11FAC589400F93466 /* ExpViewController.swift in Sources */,
 				E15935511F9E14BE009D2369 /* Const.swift in Sources */,
