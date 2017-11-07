@@ -19,6 +19,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
+        searchedTableView.register(nib, forCellReuseIdentifier: "SearchedCell")
+        searchedTableView.estimatedRowHeight = 70
+        searchedTableView.rowHeight = UITableViewAutomaticDimension
+
         allSearchBar.delegate = self
         searchedTableView.delegate = self
         searchedTableView.dataSource = self
@@ -45,9 +50,9 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         //cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-        cell.myTnameLabel?.text = "\(searchResult[indexPath.row].id) : \(searchResult[indexPath.row].tname)"
+        cell.tnameLabel?.text = "\(searchResult[indexPath.row].id) : \(searchResult[indexPath.row].tname)"
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-        cell.myJnameLabel?.text = searchResult[indexPath.row].jname
+        cell.jnameLabel?.text = searchResult[indexPath.row].jname
         
         return cell
     }

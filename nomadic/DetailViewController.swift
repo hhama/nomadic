@@ -78,8 +78,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         scrollView.addSubview(tnameLabel)
         
         let screenSize = UIScreen.main.bounds.size
-        let tnameSize = CGSize(width: screenSize.width - 40, height: 24)
-        tnameLabel.autoSetDimensions(to: tnameSize)
+        // let tnameSize = CGSize(width: screenSize.width - 40, height: 24)
+        // tnameLabel.autoSetDimensions(to: tnameSize)
         
         // tnameLabel.autoPinEdge(.top, to: .bottom, of: scrollView, withOffset: 10.0)
         tnameLabel.autoPinEdge(toSuperviewEdge: .top, withInset: 10.0)
@@ -124,6 +124,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         }
         verbLabel.numberOfLines = 0
         verbLabel.copyable = true // コピー可能に
+        // verbLabel.font = UIFont.italicSystemFont(ofSize: 20)
         verbLabel.font = UIFont(name: "TimesNewRomanPS-BoldItalicMT", size: 20)
         scrollView.addSubview(verbLabel)
         
