@@ -21,6 +21,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
 
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
         searchedTableView.register(nib, forCellReuseIdentifier: "SearchedCell")
+        searchedTableView.rowHeight = 70
         searchedTableView.estimatedRowHeight = 70
         searchedTableView.rowHeight = UITableViewAutomaticDimension
 

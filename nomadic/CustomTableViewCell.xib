@@ -32,12 +32,13 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="cKZ-GN-0Cr" firstAttribute="top" secondItem="SkT-2H-eJB" secondAttribute="bottom" constant="10" id="4li-mz-lrP"/>
-                    <constraint firstItem="cKZ-GN-0Cr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="TOG-bD-Cfb"/>
+                    <constraint firstItem="cKZ-GN-0Cr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="088-st-nhP"/>
+                    <constraint firstAttribute="trailing" secondItem="cKZ-GN-0Cr" secondAttribute="trailing" constant="10" id="AHP-RX-YZC"/>
                     <constraint firstItem="SkT-2H-eJB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="TOX-44-PTh"/>
                     <constraint firstItem="SkT-2H-eJB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="aet-Km-abq"/>
+                    <constraint firstAttribute="bottom" secondItem="cKZ-GN-0Cr" secondAttribute="bottom" constant="16" id="jPP-fz-olL"/>
                     <constraint firstAttribute="trailing" secondItem="SkT-2H-eJB" secondAttribute="trailing" constant="10" id="o0p-pO-A19"/>
-                    <constraint firstAttribute="trailing" secondItem="cKZ-GN-0Cr" secondAttribute="trailing" constant="10" id="xTh-FR-EAU"/>
+                    <constraint firstItem="cKZ-GN-0Cr" firstAttribute="top" secondItem="SkT-2H-eJB" secondAttribute="bottom" constant="10" id="thw-1H-UdU"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

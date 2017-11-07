@@ -22,6 +22,12 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
+        selectedDataTableView.register(nib, forCellReuseIdentifier: "SearchedCell")
+        selectedDataTableView.estimatedRowHeight = 70
+        selectedDataTableView.rowHeight = 70
+        selectedDataTableView.rowHeight = UITableViewAutomaticDimension
+
         selectedDataTableView.delegate = self
         selectedDataTableView.dataSource = self
 
@@ -48,21 +54,21 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // 再利用可能な cell を得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SelectedDataCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath)
         
         if indexPath.row == 0 {
             
-            cell.textLabel?.text = "\(categoryId) : \(category) > \(tag)"
-            cell.textLabel?.textAlignment = NSTextAlignment.center
-            cell.detailTextLabel?.text = ""
+            cell.tnameLabel?.text = "\(categoryId) : \(category) > \(tag)"
+            cell.tnameLabel?.textAlignment = NSTextAlignment.center
+            cell.jnameLabel?.text = ""
             //cell.textLabel?.textColor = UIColor.lightGray
             cell.backgroundColor = UIColor.white
         } else {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             
-            cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-            cell.textLabel?.text = "\(allSelectedData[indexPath.row - 1].id) : " + allSelectedData[indexPath.row - 1].tname
-            cell.detailTextLabel?.text = allSelectedData[indexPath.row - 1].jname
+            cell.tnameLabel!.font = UIFont(name: "Arial", size: 14)
+            cell.tnameLabel?.text = "\(allSelectedData[indexPath.row - 1].id) : " + allSelectedData[indexPath.row - 1].tname
+            cell.jnameLabel?.text = allSelectedData[indexPath.row - 1].jname
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
        }
         
