@@ -16,5 +16,5 @@ target 'nomadic' do
   pod 'PureLayout', '3.0.2'
   pod 'CopyableLabel', '~> 3.1'
   pod 'ReachabilitySwift'
-
+  pod 'FontAwesomeKit', '~> 2.2.0'
 end

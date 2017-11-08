@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -54,7 +55,7 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ihE-QH-Xx8" secondAttribute="bottom" id="GYC-NW-eTJ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="分類から検索" image="data-Icon-Small" selectedImage="data-Icon-Small" id="ok8-42-WaC"/>
+                    <tabBarItem key="tabBarItem" title="分類から検索" id="ok8-42-WaC"/>
                     <navigationItem key="navigationItem" title="分類から検索" id="Zcm-k0-ag5"/>
                     <connections>
                         <outlet property="categoryTableView" destination="ihE-QH-Xx8" id="DVR-Yg-ksN"/>
@@ -69,7 +70,7 @@
         <scene sceneID="mDL-Og-mPr">
             <objects>
                 <navigationController id="lbz-T1-PbX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="検索" image="Search-Small" id="nJI-T3-QHo"/>
+                    <tabBarItem key="tabBarItem" title="検索" id="nJI-T3-QHo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rJ0-L6-qnx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -137,7 +138,7 @@
         <scene sceneID="GT4-4O-O6a">
             <objects>
                 <navigationController id="yvR-Qn-H4J" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="用語解説" image="News-Icon-Small" selectedImage="News-Icon-Small" id="tFr-kn-bA5"/>
+                    <tabBarItem key="tabBarItem" title="用語解説" id="tFr-kn-bA5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ybu-Hz-ArE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -149,6 +150,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JqR-Ll-5Xi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1686" y="1080"/>
+        </scene>
+        <!--ダウンロード-->
+        <scene sceneID="pJp-rx-eHg">
+            <objects>
+                <viewController id="1MU-hY-KhM" customClass="DataDLViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ti7-CV-Iig"/>
+                        <viewControllerLayoutGuide type="bottom" id="zKW-fB-0Pd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2ei-gN-e2g">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="辞書は最新です。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ziX-3S-zyo">
+                                <rect key="frame" x="16" y="90" width="343" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ziX-3S-zyo" firstAttribute="leading" secondItem="2ei-gN-e2g" secondAttribute="leadingMargin" id="BOh-qE-XJL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ziX-3S-zyo" secondAttribute="trailing" id="i28-PS-Ovt"/>
+                            <constraint firstItem="ziX-3S-zyo" firstAttribute="top" secondItem="Ti7-CV-Iig" secondAttribute="bottom" constant="70" id="rwp-fl-EbL"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="ダウンロード" id="DmR-pW-ceE"/>
+                    <connections>
+                        <outlet property="downloadMessageLabel" destination="ziX-3S-zyo" id="Gbs-kW-cqh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="84V-Zs-6c9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1686" y="1908"/>
         </scene>
         <!--用語解説-->
         <scene sceneID="GD9-dI-ncz">
@@ -354,6 +390,7 @@
                         <segue destination="KvA-RU-Yfp" kind="relationship" relationship="viewControllers" id="OCz-tq-H1L"/>
                         <segue destination="lbz-T1-PbX" kind="relationship" relationship="viewControllers" id="mIY-fX-8N9"/>
                         <segue destination="yvR-Qn-H4J" kind="relationship" relationship="viewControllers" id="FZZ-3F-c9Z"/>
+                        <segue destination="1MU-hY-KhM" kind="relationship" relationship="viewControllers" id="8GO-nC-Z5Q"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHQ-qp-fIu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -364,7 +401,7 @@
         <scene sceneID="GAM-dc-cuw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KvA-RU-Yfp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="分類から検索" image="data-Icon-Small" selectedImage="data-Icon-Small" id="Id2-aa-RO0"/>
+                    <tabBarItem key="tabBarItem" title="分類から検索" id="Id2-aa-RO0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="l4j-r2-R2x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -380,11 +417,6 @@
             <point key="canvasLocation" x="1660" y="-427"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="News-Icon-Small" width="29" height="29"/>
-        <image name="Search-Small" width="29" height="29"/>
-        <image name="data-Icon-Small" width="29" height="29"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="u2d-rP-iy9"/>
     </inferredMetricsTieBreakers>

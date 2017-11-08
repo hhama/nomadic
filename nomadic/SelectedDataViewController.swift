@@ -54,7 +54,7 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // 再利用可能な cell を得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath) as! CustomTableViewCell
         
         if indexPath.row == 0 {
             
@@ -66,7 +66,7 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
         } else {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             
-            cell.tnameLabel!.font = UIFont(name: "Arial", size: 14)
+            // cell.tnameLabel!.font = UIFont(name: "Arial", size: 14)
             cell.tnameLabel?.text = "\(allSelectedData[indexPath.row - 1].id) : " + allSelectedData[indexPath.row - 1].tname
             cell.jnameLabel?.text = allSelectedData[indexPath.row - 1].jname
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator

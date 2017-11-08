@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 import RealmSwift
 import ReachabilitySwift
+import FontAwesomeKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -54,11 +55,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var tabBarItemONE: UITabBarItem = UITabBarItem()
     var tabBarItemTWO: UITabBarItem = UITabBarItem()
     var tabBarItemTHREE: UITabBarItem = UITabBarItem()
-
+    var tabBarItemFOUR: UITabBarItem = UITabBarItem()
+    
     @IBOutlet weak var categoryTableView: UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // タブバーのフォントをFontAwesomeから設定する。
+        let tabBarControllerItems = self.tabBarController?.tabBar.items
+        
+        if let arrayOfTabBarItems = tabBarControllerItems as AnyObject as? NSArray{
+            self.tabBarItemONE = arrayOfTabBarItems[0] as! UITabBarItem
+            tabBarItemONE.image = FAKFontAwesome.listIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
+            self.tabBarItemTWO = arrayOfTabBarItems[1] as! UITabBarItem
+            tabBarItemTWO.image = FAKFontAwesome.searchIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
+            self.tabBarItemTHREE = arrayOfTabBarItems[2] as! UITabBarItem
+            tabBarItemTHREE.image = FAKFontAwesome.newspaperOIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
+            self.tabBarItemFOUR = arrayOfTabBarItems[3] as! UITabBarItem
+            tabBarItemFOUR.image = FAKFontAwesome.downloadIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
+        }
 
         // アプリがForegroundになった通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.viewWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
@@ -179,18 +195,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.activityIndicator.startAnimating() // クルクルスタート
                     
                     // UITabBarのボタンを押せなくする
-                    let tabBarControllerItems = self.tabBarController?.tabBar.items
-                    
-                    if let arrayOfTabBarItems = tabBarControllerItems as AnyObject as? NSArray{
-                        self.tabBarItemONE = arrayOfTabBarItems[0] as! UITabBarItem
-                        self.tabBarItemONE.isEnabled = false
-                        
-                        self.tabBarItemTWO = arrayOfTabBarItems[1] as! UITabBarItem
-                        self.tabBarItemTWO.isEnabled = false
-                        
-                        self.tabBarItemTHREE = arrayOfTabBarItems[2] as! UITabBarItem
-                        self.tabBarItemTHREE.isEnabled = false
-                    }
+                    self.tabBarItemONE.isEnabled = false
+                    self.tabBarItemTWO.isEnabled = false
+                    self.tabBarItemTHREE.isEnabled = false
+                    self.tabBarItemFOUR.isEnabled = false
                 }
             }
         } else {
@@ -249,16 +257,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     print("DEBUG_PRINT: 辞書がなくて辞書更新")
                     self.readingDictionary()
                 } else if firebaseTime > updateTimeArray[0].updateTime {
-                    // realm側の更新時刻をFirebase側の時刻で更新
-                    if let realmTime = updateTimeArray.first {
-                        // UpdateTimeの更新
-                        try! realm.write {
-                            realmTime.updateTime = firebaseTime
-                        }
-                    }
+                    // ダウンロードタブのボタンにバッジをつける
+                    self.tabBarItemFOUR.badgeValue = ""
+ 
+                    print("DEBUG_PRINT: バッジをつけてここでクルクルストップ!")
+                    self.activityIndicator.stopAnimating() // クルクルストップ
+                    self.grayView.removeFromSuperview()
                     
-                    print("DEBUG_PRINT: 更新時間で辞書更新")
-                    self.readingDictionary()
+                    // UITabBarのボタンを押せるようにする
+                    print("DEBUG_PRINT: バッジをつけてここでTabボタンが押せるようになる!")
+                    self.tabBarItemONE.isEnabled = true
+                    self.tabBarItemTWO.isEnabled = true
+                    self.tabBarItemTHREE.isEnabled = true
+                    self.tabBarItemFOUR.isEnabled = true
                 } else {
                     // 辞書を読み込む必要なし
 
@@ -271,6 +282,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.tabBarItemONE.isEnabled = true
                     self.tabBarItemTWO.isEnabled = true
                     self.tabBarItemTHREE.isEnabled = true
+                    self.tabBarItemFOUR.isEnabled = true
                 }
             }
         })
@@ -367,7 +379,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.tabBarItemONE.isEnabled = true
             self.tabBarItemTWO.isEnabled = true
             self.tabBarItemTHREE.isEnabled = true
-
+            self.tabBarItemFOUR.isEnabled = true
         })
     }
 
