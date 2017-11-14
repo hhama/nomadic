@@ -127,7 +127,7 @@
                     <connections>
                         <outlet property="allSearchBar" destination="6ta-5n-ZJT" id="AOe-Dj-kQi"/>
                         <outlet property="searchedTableView" destination="xXr-mV-Y6w" id="b9F-yO-TcO"/>
-                        <segue destination="EQj-4v-jDJ" kind="show" identifier="searchCellSegue" id="OdX-Cs-hWJ"/>
+                        <segue destination="lwf-P0-DVs" kind="show" identifier="searchCellSegue" id="MwM-xz-nJ4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0QO-Wh-wYj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -364,7 +364,7 @@
                     </view>
                     <connections>
                         <outlet property="selectedDataTableView" destination="cmL-bi-66N" id="dr4-uM-5NN"/>
-                        <segue destination="EQj-4v-jDJ" kind="show" identifier="detailCellSegue" id="u2d-rP-iy9"/>
+                        <segue destination="lwf-P0-DVs" kind="show" identifier="detailCellSegue" id="8qh-KH-KW0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4lx-1X-bMa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -372,21 +372,37 @@
             <point key="canvasLocation" x="4204" y="-429"/>
         </scene>
         <!--Detail View Controller-->
-        <scene sceneID="YPc-cI-zy0">
+        <scene sceneID="Bbp-Co-cdz">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="EQj-4v-jDJ" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
-                    <webView key="view" contentMode="scaleToFill" id="xXy-eH-hT7">
+                <viewController id="lwf-P0-DVs" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0Sp-iX-gjH"/>
+                        <viewControllerLayoutGuide type="bottom" id="k1v-e9-lQP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="phX-SD-NmI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </webView>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvu-zV-dut">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="k1v-e9-lQP" firstAttribute="top" secondItem="dvu-zV-dut" secondAttribute="bottom" id="CmN-G1-n47"/>
+                            <constraint firstItem="dvu-zV-dut" firstAttribute="top" secondItem="0Sp-iX-gjH" secondAttribute="bottom" id="epf-lu-Yti"/>
+                            <constraint firstItem="dvu-zV-dut" firstAttribute="leading" secondItem="phX-SD-NmI" secondAttribute="leading" id="fOA-B1-j1n"/>
+                            <constraint firstAttribute="trailing" secondItem="dvu-zV-dut" secondAttribute="trailing" id="ptt-xw-2Go"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="detailWebView" destination="xXy-eH-hT7" id="aNX-uN-TIR"/>
+                        <outlet property="detailWebView" destination="dvu-zV-dut" id="XmX-L4-cGh"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="M1B-HY-Ee7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uq4-f6-EGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4984.8000000000002" y="-430.88455772113946"/>
+            <point key="canvasLocation" x="5023" y="-432"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="l48-wg-86c">
@@ -429,6 +445,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="u2d-rP-iy9"/>
+        <segue reference="MwM-xz-nJ4"/>
     </inferredMetricsTieBreakers>
 </document>

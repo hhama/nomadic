@@ -67,7 +67,8 @@ class DataDLViewController: UIViewController {
                 
                     let realm = try! Realm()
                     let updateTimeArray = realm.objects(UpdateTime.self)
-                
+                    print(updateTimeArray[0].updateTime)
+                    
                     if !updateTimeArray.isEmpty {
                         print("Firebase: \(firebaseTime) <--> Realm: \(updateTimeArray[0].updateTime)")
                     }

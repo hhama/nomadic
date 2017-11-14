@@ -1,3 +1,4 @@
 Pods/*
 nomadic.xcworkspace
 GoogleService-Info.plist
+.DS_Store

@@ -221,11 +221,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 if updateTimeArray.isEmpty {
                     // 一番最初のアプリ起動時にRealmの更新時間を書き込む
-                    
+
                     // realm側の更新時刻をFirebase側の時刻で更新
                     let realmTime = UpdateTime()
                     realmTime.updateTime = firebaseTime
-                    
+                    print("DEBUG_PRINT: updateTImeArray is Empty! Firebase: \(firebaseTime)")
+
                     // UpdateTimeの書き込み
                     try! realm.write {
                         realm.add(realmTime)
