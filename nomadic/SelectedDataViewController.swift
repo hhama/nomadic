@@ -30,6 +30,11 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
 
         selectedDataTableView.delegate = self
         selectedDataTableView.dataSource = self
+        
+        // navigationControllerの「戻る」を「Back」に変える
+        let backButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButtonItem
+
 
         // realmから辞書を読み込み
         let realm = try! Realm()
@@ -59,10 +64,11 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
         if indexPath.row == 0 {
             
             cell.tnameLabel?.text = "\(categoryId) : \(category) > \(tag)"
-            cell.tnameLabel?.textAlignment = NSTextAlignment.center
+            // cell.tnameLabel?.textAlignment = NSTextAlignment.center
             cell.jnameLabel?.text = ""
             //cell.textLabel?.textColor = UIColor.lightGray
             cell.backgroundColor = UIColor.white
+            cell.accessoryType = .none
         } else {
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             
@@ -70,7 +76,7 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
             cell.tnameLabel?.text = "\(allSelectedData[indexPath.row - 1].id) : " + allSelectedData[indexPath.row - 1].tname
             cell.jnameLabel?.text = allSelectedData[indexPath.row - 1].jname
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
-       }
+        }
         
         return cell
     }

@@ -9,7 +9,8 @@
 import Foundation
 
 struct Const {
-    static let DataPath = "data"
+    static let DataFileName = "nomadic_alldata.json"
+    static let ZipFileName = "dicentry_html.zip"
     static let UpdatePath = "update"
-    static let ExpUrlPath = "expurl"
+    static let ExpUrlFileName = "expurl.json"
 }

@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import ReachabilitySwift
+import Reachability
+import Firebase
+import FirebaseStorage
 
 class ExpDetailViewController: UIViewController,UIWebViewDelegate {
 
@@ -38,7 +40,7 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
         // 通信できるかどうかのチェック
         let reachability = Reachability()
 
-        if reachability?.currentReachabilityString == "No Connection" {
+        if !reachability!.isReachable {
             // Alertを出す
             showAlert()
         } else {
@@ -62,7 +64,7 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
             
             
             dataReadLabel = UILabel()
-            dataReadLabel.text = "データ読み込み中"
+            dataReadLabel.text = "Loading..."
             dataReadLabel.sizeToFit()
             dataReadLabel.center = view.center
             
@@ -72,9 +74,21 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
             view.addSubview(grayView)
             self.activityIndicator.startAnimating() // クルクルスタート
             
-            let url: NSURL = NSURL(string: expUrl)!
-            let request: URLRequest = URLRequest(url: url as URL)
-            expDetailWebView.loadRequest(request)
+            // Create a reference to the file you want to download
+            let storageRef = Storage.storage().reference()
+            let fileRef = storageRef.child("html/\(self.expUrl)")
+            
+            // webView.delegate = self
+            // Fetch the download URL
+            fileRef.downloadURL { (url, error) -> Void in
+                if (error != nil) {
+                    print(error!)// Handle any errors
+                } else {
+                    // Get the download URL
+                    let request: URLRequest = URLRequest(url: url!)
+                    self.expDetailWebView.loadRequest(request)
+                }
+            }
         }
     }
 
@@ -83,8 +97,8 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
         
         // アラートを作成
         let alert = UIAlertController(
-            title: "通信できません。",
-            message: "通信できる環境でご覧ください。",
+            title: "Please connect to a mobile network.",
+            message: "",
             preferredStyle: .alert)
         
         // アラートにボタンをつける

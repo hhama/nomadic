@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iiD-qM-v10">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iiD-qM-v10">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--分類から検索-->
+        <!--Category-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
@@ -55,8 +55,8 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ihE-QH-Xx8" secondAttribute="bottom" id="GYC-NW-eTJ"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="分類から検索" id="ok8-42-WaC"/>
-                    <navigationItem key="navigationItem" title="分類から検索" id="Zcm-k0-ag5"/>
+                    <tabBarItem key="tabBarItem" title="Category" id="ok8-42-WaC"/>
+                    <navigationItem key="navigationItem" title="Category" id="Zcm-k0-ag5"/>
                     <connections>
                         <outlet property="categoryTableView" destination="ihE-QH-Xx8" id="DVR-Yg-ksN"/>
                         <segue destination="Bhj-xu-CjZ" kind="show" identifier="categoryCellSegue" id="0vw-R1-Hxd"/>
@@ -66,13 +66,13 @@
             </objects>
             <point key="canvasLocation" x="2564" y="-428"/>
         </scene>
-        <!--検索-->
+        <!--Search-->
         <scene sceneID="mDL-Og-mPr">
             <objects>
                 <navigationController id="lbz-T1-PbX" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="検索" id="nJI-T3-QHo"/>
+                    <tabBarItem key="tabBarItem" title="Search" id="nJI-T3-QHo"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rJ0-L6-qnx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -83,7 +83,7 @@
             </objects>
             <point key="canvasLocation" x="1679" y="342"/>
         </scene>
-        <!--検索-->
+        <!--Search-->
         <scene sceneID="K9C-vS-58i">
             <objects>
                 <viewController id="Sas-Oj-Qzs" customClass="SearchViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
@@ -103,11 +103,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="6ta-5n-ZJT">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xXr-mV-Y6w">
-                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="498"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
@@ -123,7 +123,7 @@
                             <constraint firstItem="6ta-5n-ZJT" firstAttribute="top" secondItem="e2L-GH-IAS" secondAttribute="bottom" id="tfW-Qh-YH8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="検索" id="tcQ-59-pvU"/>
+                    <navigationItem key="navigationItem" title="Search" id="tcQ-59-pvU"/>
                     <connections>
                         <outlet property="allSearchBar" destination="6ta-5n-ZJT" id="AOe-Dj-kQi"/>
                         <outlet property="searchedTableView" destination="xXr-mV-Y6w" id="b9F-yO-TcO"/>
@@ -134,13 +134,13 @@
             </objects>
             <point key="canvasLocation" x="2629.5999999999999" y="347.67616191904051"/>
         </scene>
-        <!--用語解説-->
+        <!--Reading-->
         <scene sceneID="GT4-4O-O6a">
             <objects>
                 <navigationController id="yvR-Qn-H4J" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="用語解説" id="tFr-kn-bA5"/>
+                    <tabBarItem key="tabBarItem" title="Reading" id="tFr-kn-bA5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ybu-Hz-ArE">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -151,7 +151,7 @@
             </objects>
             <point key="canvasLocation" x="1686" y="1080"/>
         </scene>
-        <!--ダウンロード-->
+        <!--Download-->
         <scene sceneID="pJp-rx-eHg">
             <objects>
                 <viewController id="1MU-hY-KhM" customClass="DataDLViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
@@ -163,7 +163,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="辞書は最新です。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ziX-3S-zyo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the latest version." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ziX-3S-zyo">
                                 <rect key="frame" x="16" y="90" width="343" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -177,7 +177,7 @@
                             <constraint firstItem="ziX-3S-zyo" firstAttribute="top" secondItem="Ti7-CV-Iig" secondAttribute="bottom" constant="70" id="rwp-fl-EbL"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="ダウンロード" id="DmR-pW-ceE"/>
+                    <tabBarItem key="tabBarItem" title="Download" id="DmR-pW-ceE"/>
                     <connections>
                         <outlet property="downloadMessageLabel" destination="ziX-3S-zyo" id="Gbs-kW-cqh"/>
                     </connections>
@@ -186,7 +186,7 @@
             </objects>
             <point key="canvasLocation" x="1686" y="1908"/>
         </scene>
-        <!--用語解説-->
+        <!--Reading-->
         <scene sceneID="GD9-dI-ncz">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="w1c-zn-t1z" customClass="ExpViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
@@ -231,7 +231,7 @@
                             <constraint firstItem="4Ht-0f-TfR" firstAttribute="top" secondItem="H1h-1M-kPZ" secondAttribute="bottom" id="gHY-iP-kEc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="用語解説" id="N11-jh-5hH"/>
+                    <navigationItem key="navigationItem" title="Reading" id="N11-jh-5hH"/>
                     <connections>
                         <outlet property="expTableView" destination="4Ht-0f-TfR" id="sJw-gU-7K0"/>
                         <segue destination="Y4z-hc-dvw" kind="show" identifier="expCellSegue" id="fxl-1C-xKz"/>
@@ -324,7 +324,9 @@
                             <constraint firstAttribute="trailing" secondItem="t2v-LV-tIm" secondAttribute="trailing" id="rEl-Lu-lFU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="fNb-P7-YWy"/>
+                    <navigationItem key="navigationItem" id="fNb-P7-YWy">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Obj-yO-Rlv"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tagsTableView" destination="t2v-LV-tIm" id="X3V-rC-ncJ"/>
                         <segue destination="3DQ-o6-FDL" kind="show" identifier="tagsCellSegue" id="8Iv-yI-6TL"/>
@@ -372,7 +374,16 @@
         <!--Detail View Controller-->
         <scene sceneID="YPc-cI-zy0">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="EQj-4v-jDJ" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController"/>
+                <viewController hidesBottomBarWhenPushed="YES" id="EQj-4v-jDJ" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
+                    <webView key="view" contentMode="scaleToFill" id="xXy-eH-hT7">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </webView>
+                    <connections>
+                        <outlet property="detailWebView" destination="xXy-eH-hT7" id="aNX-uN-TIR"/>
+                    </connections>
+                </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M1B-HY-Ee7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4984.8000000000002" y="-430.88455772113946"/>
@@ -397,14 +408,14 @@
             </objects>
             <point key="canvasLocation" x="804" y="-130"/>
         </scene>
-        <!--分類から検索-->
+        <!--Category-->
         <scene sceneID="GAM-dc-cuw">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KvA-RU-Yfp" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="分類から検索" id="Id2-aa-RO0"/>
+                    <tabBarItem key="tabBarItem" title="Category" id="Id2-aa-RO0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="l4j-r2-R2x">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

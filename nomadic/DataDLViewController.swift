@@ -9,8 +9,12 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
+import FirebaseStorage
 import RealmSwift
-import ReachabilitySwift
+import Reachability
+import SwiftyJSON
+import SVProgressHUD
+import SSZipArchive
 
 class DataDLViewController: UIViewController {
 
@@ -53,9 +57,8 @@ class DataDLViewController: UIViewController {
         
         let checkRef = Database.database().reference().child(Const.UpdatePath)
         
-        if (reachability?.currentReachabilityString != "No Connection")  {
+        if (reachability?.isReachable)!  {
             print("DEBUG_PRINT: DataDL Connected!")
-            
             
             // データベース側のUpdate時間を取得
             checkRef.observeSingleEvent(of: DataEventType.value, with: { snapshot in
@@ -73,24 +76,9 @@ class DataDLViewController: UIViewController {
 
                         self.loadingIndicatorSetup()
 
-                        self.downloadMessageLabel.text = "新しい辞書があります。"
+                        self.downloadMessageLabel.text = "New version is available."
                         self.showAlert(firebaseTime: firebaseTime)
                         
-                    } else {
-                        // 辞書を読み込む必要なし
-                        
-                        /*
-                        print("DEBUG_PRINT: 辞書を読み込まない時、ここでクルクルストップ!")
-                        self.activityIndicator.stopAnimating() // クルクルストップ
-                        self.grayView.removeFromSuperview()
-                        
-                        // UITabBarのボタンを押せるようにする
-                        print("DEBUG_PRINT: 辞書を読み込まない時、ここでTabボタンが押せるようになる!")
-                        self.tabBarItemONE.isEnabled = true
-                        self.tabBarItemTWO.isEnabled = true
-                        self.tabBarItemTHREE.isEnabled = true
-                        self.tabBarItemFOUR.isEnabled = true
-                         */
                     }
                 }
             })
@@ -105,8 +93,8 @@ class DataDLViewController: UIViewController {
         
         // アラートを作成
         let alert = UIAlertController(
-            title: "新しい辞書があります。",
-            message: "辞書を更新しますか？",
+            title: "New version is available.",
+            message: "Update?",
             preferredStyle: .alert)
         
         // アラートにボタンをつける
@@ -130,11 +118,10 @@ class DataDLViewController: UIViewController {
             
             DispatchQueue.global().async {
                 print("DEBUG_PRINT: global queue!")
-                self.readingDictionary()
                 
                 DispatchQueue.main.async {
                     print("DEBUG_PRINT: main queue!")
-                    self.activityIndicator.startAnimating() // クルクルスタート
+                    SVProgressHUD.show(withStatus: "Updating")
                     
                     // UITabBarのボタンを押せなくする
                     self.tabBarItemONE.isEnabled = false
@@ -142,12 +129,14 @@ class DataDLViewController: UIViewController {
                     self.tabBarItemTHREE.isEnabled = false
                     self.tabBarItemFOUR.isEnabled = false
                 }
+                self.readingDictionaryAndZip()
             }
          }))
 
         alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
             print("Noが押された")
-            self.activityIndicator.stopAnimating() // クルクルストップ
+            SVProgressHUD.dismiss()
+            //self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
         }))
         
@@ -155,7 +144,172 @@ class DataDLViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-    // RealmにFirebaseの辞書と用語解説のURLデータを読み込む
+    // RealmにFirebase Storageの辞書,用語解説のURLデータ,詳細表示用のHTML(zip)を読み込む
+    func readingDictionaryAndZip(){
+        
+        // 現在持っている辞書の削除
+        let realm = try! Realm()
+        let dicEntryArray = realm.objects(DicEntry.self)
+        if !dicEntryArray.isEmpty {
+            for entry in dicEntryArray {
+                try! realm.write {
+                    realm.delete(entry)
+                }
+            }
+        }
+        
+        // 現在持っているURLリストの削除
+        let expUrlEntryArray = realm.objects(ExpUrl.self)
+        if !expUrlEntryArray.isEmpty {
+            for entry in expUrlEntryArray {
+                try! realm.write {
+                    realm.delete(entry)
+                }
+            }
+        }
+        
+        // Documentsディレクトリのファイルを消す
+        clearDocumentDirectory()
+        
+        print("DEBUG_PRINT: in readingDictionaryAndZip()")
+        
+        // 辞書の読み込み
+        // Create a reference to the JSON file
+        let storageRef = Storage.storage().reference()
+        var jsonRef = storageRef.child(Const.DataFileName)
+        
+        jsonRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error)
+            } else {
+                // Data for JSON-file is returned
+                let json = try! JSON(data: data!)
+
+                for (_,subJson):(String, JSON) in json {
+                    // 追加するデータを用意
+                    // print("index: \(index) , key: \(key) , data: \(subJson)")
+                    let dicEntry = DicEntry()
+                    dicEntry.id = subJson["id"].stringValue
+                    dicEntry.jname = subJson["jname"].stringValue
+                    dicEntry.tname = subJson["tname"].stringValue
+                    dicEntry.wylie = subJson["wylie"].stringValue
+                    dicEntry.tags = subJson["tags"].stringValue
+                    dicEntry.image = subJson["image"].stringValue
+                    dicEntry.eng = subJson["eng"].stringValue
+                    dicEntry.chn = subJson["chn"].stringValue
+                    dicEntry.kata = subJson["kata"].stringValue
+                    dicEntry.pron = subJson["pron"].stringValue
+                    dicEntry.verb = subJson["verb"].stringValue
+                    dicEntry.exp = subJson["exp"].stringValue
+                    dicEntry.bunrui1 = subJson["bunrui1"].stringValue
+                    dicEntry.bunrui2 = subJson["bunrui2"].stringValue
+                    dicEntry.bunrui3 = subJson["bunrui3"].stringValue
+                    
+                    // データを追加
+                    let realm = try! Realm()
+                    try! realm.write() {
+                        realm.add(dicEntry)
+                    }
+                }
+            }
+        }
+        // 用語解説のURLリストの読み込み
+        jsonRef = storageRef.child(Const.ExpUrlFileName)
+        jsonRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error)
+            } else {
+                // Data for JSON-file is returned
+                let json = try! JSON(data: data!)
+                
+                for (_,subJson):(String, JSON) in json {
+                    
+                    let entry = ExpUrl()
+                    entry.url = subJson["url"].stringValue
+                    entry.title = subJson["title"].stringValue
+                    
+                    // print("URL: \(entry.url), Title: \(entry.title)")
+                    
+                    // データを追加
+                    let realm = try! Realm()
+                    try! realm.write() {
+                        realm.add(entry)
+                    }
+                }
+            }
+        }
+        
+        // Create a reference to the Zip file
+        let zipRef = storageRef.child(Const.ZipFileName)
+        
+        // Create local filesystem URL
+        let localURL = URL(string: "\(documentDirectory)/\(Const.ZipFileName)")
+        
+        // Download to the local filesystem
+        zipRef.write(toFile: localURL!) { url, error in
+            if let error = error {
+                print(error)
+            } else {
+                print("DEBUG_PRINT: ZIP-file Download Success!")
+                
+                // zipfile path
+                let zipFilePath = "\(self.documentDirectory.path)/\(Const.ZipFileName)"
+                
+                // destination path to unzip
+                let unZipFilePath = self.documentDirectory.path
+                
+                // exec unzip
+                if !SSZipArchive.unzipFile(atPath: zipFilePath, toDestination: unZipFilePath) {
+                    print("解凍できませんでした...")
+                } else {
+                    // show result
+                    print(self.documentDirectory.path)
+                    print("解凍終了！")
+                }
+                
+                // Zipファイルの削除
+                let manager = FileManager()
+                try! manager.removeItem(atPath: zipFilePath)
+            }
+            
+            print("DEBUG_PRINT: inDL 辞書読み込み時、ここでクルクルストップ!")
+            SVProgressHUD.dismiss()
+            //self.activityIndicator.stopAnimating() // クルクルストップ
+            self.grayView.removeFromSuperview()
+            
+            // UITabBarのボタンを押せるようにする
+            print("DEBUG_PRINT: inDL 辞書読み込み時、ここでTabボタンが押せるようになる!")
+            self.tabBarItemONE.isEnabled = true
+            self.tabBarItemTWO.isEnabled = true
+            self.tabBarItemTHREE.isEnabled = true
+            self.tabBarItemFOUR.isEnabled = true
+            
+            self.downloadMessageLabel.text = "This is the latest version."
+        }
+    }
+
+    // documentDirectory's url
+    private let documentDirectory:URL = {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }()
+    
+    // clear all files in documentDirectory
+    private func clearDocumentDirectory(){
+        do{
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants])
+            
+            for url in fileURLs{
+                try FileManager.default.removeItem(at: url)
+            }
+        }catch(let ex){
+            print(ex.localizedDescription)
+        }
+    }
+
+/*
+    // RealmにFirebase Storageの辞書と用語解説のURLデータを読み込む
     func readingDictionary(){
         
         // 現在持っている辞書の削除
@@ -180,30 +334,39 @@ class DataDLViewController: UIViewController {
         }
         
         print("DEBUG_PRINT: in readingDictionary()")
+        
         // 辞書の読み込み
-        let defaultPlace = Database.database().reference().child(Const.DataPath)
-        defaultPlace.observeSingleEvent(of: .value, with: { snapshot in
-            
-            if let postDictArray = snapshot.value as? [NSDictionary] {
+        // Create a reference to the JSON file
+        let storageRef = Storage.storage().reference()
+        var jsonRef = storageRef.child(Const.DataFileName)
+        
+        jsonRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error)
+            } else {
+                // Data for JSON-file is returned
+                let json = try! JSON(data: data!)
                 
-                for postDict in postDictArray {
+                for (_,subJson):(String, JSON) in json {
                     // 追加するデータを用意
+                    // print("index: \(index) , key: \(key) , data: \(subJson)")
                     let dicEntry = DicEntry()
-                    dicEntry.id = postDict["id"] as! String? ?? ""
-                    dicEntry.jname = postDict["jname"] as! String? ?? ""
-                    dicEntry.tname = postDict["tname"] as! String? ?? ""
-                    dicEntry.wylie = postDict["wylie"] as! String? ?? ""
-                    dicEntry.tags = postDict["tags"] as! String? ?? ""
-                    dicEntry.image = postDict["image"] as! String? ?? ""
-                    dicEntry.eng = postDict["eng"] as! String? ?? ""
-                    dicEntry.chn = postDict["chn"] as! String? ?? ""
-                    dicEntry.kata = postDict["kata"] as! String? ?? ""
-                    dicEntry.pron = postDict["pron"] as! String? ?? ""
-                    dicEntry.verb = postDict["verb"] as! String? ?? ""
-                    dicEntry.exp = postDict["exp"] as! String? ?? ""
-                    dicEntry.bunrui1 = postDict["bunrui1"] as! String? ?? ""
-                    dicEntry.bunrui2 = postDict["bunrui2"] as! String? ?? ""
-                    dicEntry.bunrui3 = postDict["bunrui3"] as! String? ?? ""
+                    dicEntry.id = subJson["id"].stringValue
+                    dicEntry.jname = subJson["jname"].stringValue
+                    dicEntry.tname = subJson["tname"].stringValue
+                    dicEntry.wylie = subJson["wylie"].stringValue
+                    dicEntry.tags = subJson["tags"].stringValue
+                    dicEntry.image = subJson["image"].stringValue
+                    dicEntry.eng = subJson["eng"].stringValue
+                    dicEntry.chn = subJson["chn"].stringValue
+                    dicEntry.kata = subJson["kata"].stringValue
+                    dicEntry.pron = subJson["pron"].stringValue
+                    dicEntry.verb = subJson["verb"].stringValue
+                    dicEntry.exp = subJson["exp"].stringValue
+                    dicEntry.bunrui1 = subJson["bunrui1"].stringValue
+                    dicEntry.bunrui2 = subJson["bunrui2"].stringValue
+                    dicEntry.bunrui3 = subJson["bunrui3"].stringValue
                     
                     // データを追加
                     let realm = try! Realm()
@@ -211,21 +374,37 @@ class DataDLViewController: UIViewController {
                         realm.add(dicEntry)
                     }
                 }
-            }
-        })
-        
-        // 用語解説のURLリストの読み込み
-        let urlPlace = Database.database().reference().child(Const.ExpUrlPath)
-        urlPlace.observeSingleEvent(of: .value, with: { snapshot in
-            
-            
-            if let expUrlArray = snapshot.value as? [NSDictionary] {
                 
-                for expUrl in expUrlArray {
-                    // 追加するデータを用意
+                print("DEBUG_PRINT: inDL 辞書読み込み時、ここでクルクルストップ!")
+                SVProgressHUD.dismiss()
+                //self.activityIndicator.stopAnimating() // クルクルストップ
+                self.grayView.removeFromSuperview()
+                
+                // UITabBarのボタンを押せるようにする
+                print("DEBUG_PRINT: inDL 辞書読み込み時、ここでTabボタンが押せるようになる!")
+                self.tabBarItemONE.isEnabled = true
+                self.tabBarItemTWO.isEnabled = true
+                self.tabBarItemTHREE.isEnabled = true
+                self.tabBarItemFOUR.isEnabled = true
+                
+                self.downloadMessageLabel.text = "This is the latest version."
+            }
+        }
+        // 用語解説のURLリストの読み込み
+        jsonRef = storageRef.child(Const.ExpUrlFileName)
+        jsonRef.getData(maxSize: 1 * 1024 * 1024) { data, error in
+            if let error = error {
+                // Uh-oh, an error occurred!
+                print(error)
+            } else {
+                // Data for JSON-file is returned
+                let json = try! JSON(data: data!)
+                
+                for (_,subJson):(String, JSON) in json {
+                    
                     let entry = ExpUrl()
-                    entry.url = expUrl["url"] as! String? ?? ""
-                    entry.title = expUrl["title"] as! String? ?? ""
+                    entry.url = subJson["url"].stringValue
+                    entry.title = subJson["title"].stringValue
                     
                     // print("URL: \(entry.url), Title: \(entry.title)")
                     
@@ -236,54 +415,18 @@ class DataDLViewController: UIViewController {
                     }
                 }
             }
-            
-            print("DEBUG_PRINT: 辞書読み込み時、ここでクルクルストップ!")
-            self.activityIndicator.stopAnimating() // クルクルストップ
-            self.grayView.removeFromSuperview()
-            
-            // UITabBarのボタンを押せるようにする
-            print("DEBUG_PRINT: 辞書読み込み時、ここでTabボタンが押せるようになる!")
-            self.tabBarItemONE.isEnabled = true
-            self.tabBarItemTWO.isEnabled = true
-            self.tabBarItemTHREE.isEnabled = true
-            self.tabBarItemFOUR.isEnabled = true
-            
-            self.downloadMessageLabel.text = "辞書は最新です。"
-        })
+        }
     }
-    
+*/
     func loadingIndicatorSetup(){
         // 薄い灰色のViewをかぶせる
         grayView = UIView()
         grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
         grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
         grayView.center = view.center
-        
-        // ActivityIndicatorを作成＆中央に配置
-        activityIndicator = UIActivityIndicatorView()
-        activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        activityIndicator.center = view.center
-        
-        // クルクルをストップした時に非表示する
-        activityIndicator.hidesWhenStopped = true
-        
-        // 色・大きさを設定
-        activityIndicator.activityIndicatorViewStyle = .whiteLarge
-        activityIndicator.color = UIColor.white
-        
-        
-        dataReadLabel = UILabel()
-        dataReadLabel.text = "データ更新中"
-        dataReadLabel.sizeToFit()
-        dataReadLabel.center = view.center
-        
-        //Viewに追加
-        grayView.addSubview(dataReadLabel)
-        grayView.addSubview(activityIndicator)
         view.addSubview(grayView)
         
         view.bringSubview(toFront: grayView)
-       
     }
     
     override func didReceiveMemoryWarning() {
