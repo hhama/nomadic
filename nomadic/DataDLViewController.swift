@@ -24,8 +24,6 @@ class DataDLViewController: UIViewController {
     var grayView: UIView!
     var dataReadLabel: UILabel!
     
-    var dataLength = 0; // Firebaseから読み込むデータの長さ
-    
     var tabBarItemONE: UITabBarItem = UITabBarItem()
     var tabBarItemTWO: UITabBarItem = UITabBarItem()
     var tabBarItemTHREE: UITabBarItem = UITabBarItem()
@@ -139,6 +137,9 @@ class DataDLViewController: UIViewController {
             SVProgressHUD.dismiss()
             //self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
+            
+            // ダウンロードタブのボタンのバッジをつける
+            self.tabBarItemFOUR.badgeValue = ""
         }))
         
         // アラート表示
@@ -170,7 +171,7 @@ class DataDLViewController: UIViewController {
         }
         
         // Documentsディレクトリのファイルを消す
-        clearDocumentDirectory()
+        clearHTMLDirectory()
         
         print("DEBUG_PRINT: in readingDictionaryAndZip()")
         
@@ -196,7 +197,7 @@ class DataDLViewController: UIViewController {
                     dicEntry.tname = subJson["tname"].stringValue
                     dicEntry.wylie = subJson["wylie"].stringValue
                     dicEntry.tags = subJson["tags"].stringValue
-                    dicEntry.image = subJson["image"].stringValue
+                    // dicEntry.image = subJson["image"].stringValue
                     dicEntry.eng = subJson["eng"].stringValue
                     dicEntry.chn = subJson["chn"].stringValue
                     dicEntry.kata = subJson["kata"].stringValue
@@ -296,14 +297,16 @@ class DataDLViewController: UIViewController {
         return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     }()
     
-    // clear all files in documentDirectory
-    private func clearDocumentDirectory(){
+    // clear HTML directory in documentDirectory
+    private func clearHTMLDirectory(){
         do{
-            let fileURLs = try FileManager.default.contentsOfDirectory(at: documentDirectory, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsPackageDescendants, .skipsSubdirectoryDescendants])
+            let htmlDirName = Const.ZipFileName.components(separatedBy: ".").first!
+            let filepath = "\(self.documentDirectory.path)/\(htmlDirName)"
             
-            for url in fileURLs{
-                try FileManager.default.removeItem(at: url)
-            }
+            //print("DEBUG_PRINT: \(filepath)")
+            //let url = URL(string: filepath)!
+            
+            try FileManager.default.removeItem(atPath: filepath)
         }catch(let ex){
             print(ex.localizedDescription)
         }

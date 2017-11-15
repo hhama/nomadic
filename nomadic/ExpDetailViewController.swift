@@ -10,6 +10,7 @@ import UIKit
 import Reachability
 import Firebase
 import FirebaseStorage
+import SVProgressHUD
 
 class ExpDetailViewController: UIViewController,UIWebViewDelegate {
 
@@ -36,7 +37,6 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
         
         expDetailWebView.scrollView.bounces = false
 
-
         // 通信できるかどうかのチェック
         let reachability = Reachability()
 
@@ -49,30 +49,9 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
             grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
             grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
             grayView.center = view.center
-            
-            // ActivityIndicatorを作成＆中央に配置
-            activityIndicator = UIActivityIndicatorView()
-            activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-            activityIndicator.center = view.center
-            
-            // クルクルをストップした時に非表示する
-            activityIndicator.hidesWhenStopped = true
-            
-            // 色・大きさを設定
-            activityIndicator.activityIndicatorViewStyle = .whiteLarge
-            activityIndicator.color = UIColor.white
-            
-            
-            dataReadLabel = UILabel()
-            dataReadLabel.text = "Loading..."
-            dataReadLabel.sizeToFit()
-            dataReadLabel.center = view.center
-            
-            //Viewに追加
-            grayView.addSubview(dataReadLabel)
-            grayView.addSubview(activityIndicator)
             view.addSubview(grayView)
-            self.activityIndicator.startAnimating() // クルクルスタート
+
+            SVProgressHUD.show(withStatus: "Loading...")
             
             // Create a reference to the file you want to download
             let storageRef = Storage.storage().reference()
@@ -110,7 +89,7 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
     
     // 読み込み終了
     func webViewDidFinishLoad(_ webView: UIWebView){
-        self.activityIndicator.stopAnimating() // クルクルストップ
+        SVProgressHUD.dismiss() //クルクルストップ
         self.grayView.removeFromSuperview()
     }
 

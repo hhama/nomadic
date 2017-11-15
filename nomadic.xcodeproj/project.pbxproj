@@ -18,6 +18,7 @@
 		E12C56821F9F6BD200A0D987 /* DicEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C56811F9F6BD200A0D987 /* DicEntry.swift */; };
 		E12C56841F9F781C00A0D987 /* UpdataTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C56831F9F781C00A0D987 /* UpdataTime.swift */; };
 		E149D1511FA156770038B68E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149D1501FA156770038B68E /* DetailViewController.swift */; };
+		E14FC1C31FBBE9A300BB3E9D /* default in Resources */ = {isa = PBXBuildFile; fileRef = E14FC1C21FBBE9A300BB3E9D /* default */; };
 		E15935511F9E14BE009D2369 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15935501F9E14BE009D2369 /* Const.swift */; };
 		E15935531F9E16C5009D2369 /* NomadicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15935521F9E16C5009D2369 /* NomadicData.swift */; };
 		E1793D781FA0A70E00DD3F84 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */; };
@@ -46,6 +47,7 @@
 		E12C56811F9F6BD200A0D987 /* DicEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DicEntry.swift; sourceTree = "<group>"; };
 		E12C56831F9F781C00A0D987 /* UpdataTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdataTime.swift; sourceTree = "<group>"; };
 		E149D1501FA156770038B68E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E14FC1C21FBBE9A300BB3E9D /* default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = default; sourceTree = "<group>"; };
 		E15935501F9E14BE009D2369 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		E15935521F9E16C5009D2369 /* NomadicData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NomadicData.swift; sourceTree = "<group>"; };
 		E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		E114CF651F9E09FA0044C183 /* nomadic */ = {
 			isa = PBXGroup;
 			children = (
+				E14FC1C21FBBE9A300BB3E9D /* default */,
 				E114CF661F9E09FA0044C183 /* AppDelegate.swift */,
 				E114CF681F9E09FA0044C183 /* ViewController.swift */,
 				E114CF6A1F9E09FA0044C183 /* Main.storyboard */,
@@ -196,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14FC1C31FBBE9A300BB3E9D /* default in Resources */,
 				E114CF711F9E09FA0044C183 /* LaunchScreen.storyboard in Resources */,
 				E114CF791F9E0A510044C183 /* GoogleService-Info.plist in Resources */,
 				E114CF6E1F9E09FA0044C183 /* Assets.xcassets in Resources */,

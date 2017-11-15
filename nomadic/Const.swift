@@ -13,4 +13,6 @@ struct Const {
     static let ZipFileName = "dicentry_html.zip"
     static let UpdatePath = "update"
     static let ExpUrlFileName = "expurl.json"
+    static let DefaultDataTimeStamp = 1510669816
+    static let DefaultDataPath = "default"
 }
