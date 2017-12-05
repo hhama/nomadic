@@ -19,6 +19,10 @@ class ExpViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         expTableView.delegate = self
         expTableView.dataSource = self
         
+        // Navigation Barの色を変更
+        // self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.95, green: 0.49, blue: 0.4, alpha: 1.0) // 珊瑚朱
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 190/255, green: 194/255, blue: 63/255, alpha: 1.0) // 鶸
+        
     }
 
     override func didReceiveMemoryWarning() {

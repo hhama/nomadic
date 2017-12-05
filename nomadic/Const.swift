@@ -10,9 +10,11 @@ import Foundation
 
 struct Const {
     static let DataFileName = "nomadic_alldata.json"
-    static let ZipFileName = "dicentry_html.zip"
+    static let ZipFileName = "all_html.zip"
+    static let DicHtmlDirName = "dicentry_html"
     static let UpdatePath = "update"
     static let ExpUrlFileName = "expurl.json"
-    static let DefaultDataTimeStamp = 1510669816
+    static let ExpHtmlDirName = "exp_html"
+    static let DefaultDataTimeStamp = 1512182069
     static let DefaultDataPath = "default"
 }

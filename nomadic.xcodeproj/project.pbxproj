@@ -14,11 +14,13 @@
 		E114CF6C1F9E09FA0044C183 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6A1F9E09FA0044C183 /* Main.storyboard */; };
 		E114CF6E1F9E09FA0044C183 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6D1F9E09FA0044C183 /* Assets.xcassets */; };
 		E114CF711F9E09FA0044C183 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E114CF6F1F9E09FA0044C183 /* LaunchScreen.storyboard */; };
-		E114CF791F9E0A510044C183 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E114CF781F9E0A510044C183 /* GoogleService-Info.plist */; };
 		E12C56821F9F6BD200A0D987 /* DicEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C56811F9F6BD200A0D987 /* DicEntry.swift */; };
 		E12C56841F9F781C00A0D987 /* UpdataTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12C56831F9F781C00A0D987 /* UpdataTime.swift */; };
 		E149D1511FA156770038B68E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E149D1501FA156770038B68E /* DetailViewController.swift */; };
-		E14FC1C31FBBE9A300BB3E9D /* default in Resources */ = {isa = PBXBuildFile; fileRef = E14FC1C21FBBE9A300BB3E9D /* default */; };
+		E14FC1C91FBDAFFB00BB3E9D /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14FC1C81FBDAFFB00BB3E9D /* AboutViewController.swift */; };
+		E14FC1CB1FBDB6BA00BB3E9D /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = E14FC1CA1FBDB6BA00BB3E9D /* about.html */; };
+		E14FC1CF1FC0854C00BB3E9D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E14FC1CE1FC0854C00BB3E9D /* GoogleService-Info.plist */; };
+		E14FC1D11FC1C9D800BB3E9D /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14FC1D01FC1C9D800BB3E9D /* MyTabBarController.swift */; };
 		E15935511F9E14BE009D2369 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15935501F9E14BE009D2369 /* Const.swift */; };
 		E15935531F9E16C5009D2369 /* NomadicData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15935521F9E16C5009D2369 /* NomadicData.swift */; };
 		E1793D781FA0A70E00DD3F84 /* TagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */; };
@@ -29,6 +31,9 @@
 		E1B876461FAD388D009DD4E7 /* ExpDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */; };
 		E1B8764A1FAF0F5D009DD4E7 /* ExpUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */; };
 		E1BEC3A11FAC589400F93466 /* ExpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BEC3A01FAC589400F93466 /* ExpViewController.swift */; };
+		E1D59C9B1FD248E200176C28 /* default in Resources */ = {isa = PBXBuildFile; fileRef = E1D59C9A1FD248E200176C28 /* default */; };
+		E1D59CA41FD37DE200176C28 /* TitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D59CA21FD37DE200176C28 /* TitleTableViewCell.swift */; };
+		E1D59CA51FD37DE200176C28 /* TitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1D59CA31FD37DE200176C28 /* TitleTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,11 +48,13 @@
 		E114CF6D1F9E09FA0044C183 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E114CF701F9E09FA0044C183 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E114CF721F9E09FA0044C183 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E114CF781F9E0A510044C183 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E12C56811F9F6BD200A0D987 /* DicEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DicEntry.swift; sourceTree = "<group>"; };
 		E12C56831F9F781C00A0D987 /* UpdataTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdataTime.swift; sourceTree = "<group>"; };
 		E149D1501FA156770038B68E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		E14FC1C21FBBE9A300BB3E9D /* default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = default; sourceTree = "<group>"; };
+		E14FC1C81FBDAFFB00BB3E9D /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		E14FC1CA1FBDB6BA00BB3E9D /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		E14FC1CE1FC0854C00BB3E9D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E14FC1D01FC1C9D800BB3E9D /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		E15935501F9E14BE009D2369 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		E15935521F9E16C5009D2369 /* NomadicData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NomadicData.swift; sourceTree = "<group>"; };
 		E1793D771FA0A70E00DD3F84 /* TagsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagsViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +65,9 @@
 		E1B876451FAD388D009DD4E7 /* ExpDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpDetailViewController.swift; sourceTree = "<group>"; };
 		E1B876491FAF0F5D009DD4E7 /* ExpUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpUrl.swift; sourceTree = "<group>"; };
 		E1BEC3A01FAC589400F93466 /* ExpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpViewController.swift; sourceTree = "<group>"; };
+		E1D59C9A1FD248E200176C28 /* default */ = {isa = PBXFileReference; lastKnownFileType = folder; path = default; sourceTree = "<group>"; };
+		E1D59CA21FD37DE200176C28 /* TitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTableViewCell.swift; sourceTree = "<group>"; };
+		E1D59CA31FD37DE200176C28 /* TitleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,14 +120,15 @@
 		E114CF651F9E09FA0044C183 /* nomadic */ = {
 			isa = PBXGroup;
 			children = (
-				E14FC1C21FBBE9A300BB3E9D /* default */,
+				E1D59C9A1FD248E200176C28 /* default */,
+				E14FC1CE1FC0854C00BB3E9D /* GoogleService-Info.plist */,
+				E14FC1CA1FBDB6BA00BB3E9D /* about.html */,
 				E114CF661F9E09FA0044C183 /* AppDelegate.swift */,
 				E114CF681F9E09FA0044C183 /* ViewController.swift */,
 				E114CF6A1F9E09FA0044C183 /* Main.storyboard */,
 				E114CF6D1F9E09FA0044C183 /* Assets.xcassets */,
 				E114CF6F1F9E09FA0044C183 /* LaunchScreen.storyboard */,
 				E114CF721F9E09FA0044C183 /* Info.plist */,
-				E114CF781F9E0A510044C183 /* GoogleService-Info.plist */,
 				E15935501F9E14BE009D2369 /* Const.swift */,
 				E15935521F9E16C5009D2369 /* NomadicData.swift */,
 				E12C56811F9F6BD200A0D987 /* DicEntry.swift */,
@@ -132,6 +143,10 @@
 				E1875ADD1FB1C50800F1E147 /* CustomTableViewCell.swift */,
 				E1875ADE1FB1C50800F1E147 /* CustomTableViewCell.xib */,
 				E1033DA81FB30AED002543C5 /* DataDLViewController.swift */,
+				E14FC1C81FBDAFFB00BB3E9D /* AboutViewController.swift */,
+				E14FC1D01FC1C9D800BB3E9D /* MyTabBarController.swift */,
+				E1D59CA21FD37DE200176C28 /* TitleTableViewCell.swift */,
+				E1D59CA31FD37DE200176C28 /* TitleTableViewCell.xib */,
 			);
 			path = nomadic;
 			sourceTree = "<group>";
@@ -171,7 +186,7 @@
 				TargetAttributes = {
 					E114CF621F9E09FA0044C183 = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = MR965626L4;
+						DevelopmentTeam = HA9DH32M3W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -199,12 +214,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E14FC1C31FBBE9A300BB3E9D /* default in Resources */,
 				E114CF711F9E09FA0044C183 /* LaunchScreen.storyboard in Resources */,
-				E114CF791F9E0A510044C183 /* GoogleService-Info.plist in Resources */,
 				E114CF6E1F9E09FA0044C183 /* Assets.xcassets in Resources */,
+				E1D59C9B1FD248E200176C28 /* default in Resources */,
+				E14FC1CB1FBDB6BA00BB3E9D /* about.html in Resources */,
+				E1D59CA51FD37DE200176C28 /* TitleTableViewCell.xib in Resources */,
 				E1875AE01FB1C50800F1E147 /* CustomTableViewCell.xib in Resources */,
 				E114CF6C1F9E09FA0044C183 /* Main.storyboard in Resources */,
+				E14FC1CF1FC0854C00BB3E9D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +284,7 @@
 				E1033DA91FB30AED002543C5 /* DataDLViewController.swift in Sources */,
 				E1B876461FAD388D009DD4E7 /* ExpDetailViewController.swift in Sources */,
 				E149D1511FA156770038B68E /* DetailViewController.swift in Sources */,
+				E14FC1D11FC1C9D800BB3E9D /* MyTabBarController.swift in Sources */,
 				E114CF691F9E09FA0044C183 /* ViewController.swift in Sources */,
 				E1793D781FA0A70E00DD3F84 /* TagsViewController.swift in Sources */,
 				E12C56841F9F781C00A0D987 /* UpdataTime.swift in Sources */,
@@ -277,6 +295,8 @@
 				E1875ADF1FB1C50800F1E147 /* CustomTableViewCell.swift in Sources */,
 				E12C56821F9F6BD200A0D987 /* DicEntry.swift in Sources */,
 				E1BEC3A11FAC589400F93466 /* ExpViewController.swift in Sources */,
+				E14FC1C91FBDAFFB00BB3E9D /* AboutViewController.swift in Sources */,
+				E1D59CA41FD37DE200176C28 /* TitleTableViewCell.swift in Sources */,
 				E15935511F9E14BE009D2369 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,11 +421,11 @@
 			baseConfigurationReference = 648DD2FABA2005C1F1AF834D /* Pods-nomadic.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MR965626L4;
+				DEVELOPMENT_TEAM = HA9DH32M3W;
 				INFOPLIST_FILE = nomadic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.hajime.hamada.nomadic;
+				PRODUCT_BUNDLE_IDENTIFIER = org.kawachen.tech.nomadic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,11 +437,11 @@
 			baseConfigurationReference = 056B48777AE42AD676EB0087 /* Pods-nomadic.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = MR965626L4;
+				DEVELOPMENT_TEAM = HA9DH32M3W;
 				INFOPLIST_FILE = nomadic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.techacademy.hajime.hamada.nomadic;
+				PRODUCT_BUNDLE_IDENTIFIER = org.kawachen.tech.nomadic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

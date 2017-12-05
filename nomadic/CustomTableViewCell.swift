@@ -10,6 +10,8 @@ import UIKit
 
 class CustomTableViewCell: UITableViewCell {
 
+
+    @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var tnameLabel: UILabel!
     @IBOutlet weak var jnameLabel: UILabel!
     

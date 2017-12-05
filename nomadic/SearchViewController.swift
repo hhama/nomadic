@@ -23,7 +23,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         searchedTableView.register(nib, forCellReuseIdentifier: "SearchedCell")
         searchedTableView.rowHeight = 70
         searchedTableView.estimatedRowHeight = 70
-        searchedTableView.rowHeight = UITableViewAutomaticDimension
+        //searchedTableView.rowHeight = UITableViewAutomaticDimension
 
         allSearchBar.delegate = self
         searchedTableView.delegate = self
@@ -31,6 +31,10 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         allSearchBar.placeholder = "日本語、チベット語、Wylie、英語"
         allSearchBar.autocapitalizationType = .none
+        
+        // Navigation Barの色を変更
+        // self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.95, green: 0.49, blue: 0.4, alpha: 1.0) // 珊瑚朱
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.75, green: 0.76, blue: 0.25, alpha: 1.0) // 鶸
 
         //何も入力されていなくてもReturnキーを押せるようにする。
         allSearchBar.enablesReturnKeyAutomatically = false
@@ -51,7 +55,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         //cell.textLabel!.font = UIFont(name: "Arial", size: 14)
-        cell.tnameLabel?.text = "\(searchResult[indexPath.row].id) : \(searchResult[indexPath.row].tname)"
+        cell.idLabel?.text = searchResult[indexPath.row].id
+        cell.tnameLabel?.text =  searchResult[indexPath.row].tname
         cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         cell.jnameLabel?.text = searchResult[indexPath.row].jname
         
@@ -114,6 +119,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         
         if segue.identifier == "searchCellSegue" {
             let indexPath = self.searchedTableView.indexPathForSelectedRow
+            //print("DEBUG_PRINT: \(searchResult[0].id)")
             detailViewController.id = searchResult[indexPath!.row].id
         }
     }

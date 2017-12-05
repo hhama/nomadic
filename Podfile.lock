@@ -1,5 +1,4 @@
 PODS:
-  - CopyableLabel (3.1.1)
   - Firebase (4.1.0):
     - Firebase/Core (= 4.1.0)
   - Firebase/Auth (4.1.0):
@@ -73,7 +72,6 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - PureLayout (3.0.2)
   - ReachabilitySwift (4.1.0)
   - Realm (3.0.2):
     - Realm/Headers (= 3.0.2)
@@ -85,14 +83,12 @@ PODS:
   - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
-  - CopyableLabel (~> 3.1)
   - Firebase (= 4.1.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
   - FontAwesomeKit (~> 2.2.0)
-  - PureLayout (= 3.0.2)
   - ReachabilitySwift
   - RealmSwift
   - SSZipArchive (~> 2.1)
@@ -100,7 +96,6 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  CopyableLabel: f6b7d6adfc547b653823d01b568dd073640903c6
   Firebase: ebebf41db7f10e0c7668b6eaaa857fbe599aa478
   FirebaseAnalytics: 76f754d37ca5b04f36856729b6af3ca0152d1069
   FirebaseAuth: 8d1d2389cf82f891048d6d50d27d044f55ae09a6
@@ -113,7 +108,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   leveldb-library: 44ef425bfde64f5b41daef86b38db2d13edbbee1
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
   Realm: 6f23fd1f178a09342eac21bfa7c2bf4312a7a180
   RealmSwift: 695393add1b8f9d5fa75dd16e6355cf3935f71e2
@@ -121,6 +115,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: 455bac1315b3bbef398edf63d7b15731d8308ba4
+PODFILE CHECKSUM: 579bbe354573e60dc1dbbf9bb7641dbe27f58e37
 
 COCOAPODS: 1.2.0

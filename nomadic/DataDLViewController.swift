@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAnalytics
 import RealmSwift
 import Reachability
 import SwiftyJSON
@@ -28,7 +29,8 @@ class DataDLViewController: UIViewController {
     var tabBarItemTWO: UITabBarItem = UITabBarItem()
     var tabBarItemTHREE: UITabBarItem = UITabBarItem()
     var tabBarItemFOUR: UITabBarItem = UITabBarItem()
-    
+    var tabBarItemFIVE: UITabBarItem = UITabBarItem()
+
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -44,6 +46,7 @@ class DataDLViewController: UIViewController {
             self.tabBarItemTWO = arrayOfTabBarItems[1] as! UITabBarItem
             self.tabBarItemTHREE = arrayOfTabBarItems[2] as! UITabBarItem
             self.tabBarItemFOUR = arrayOfTabBarItems[3] as! UITabBarItem
+            self.tabBarItemFIVE = arrayOfTabBarItems[4] as! UITabBarItem
         }
         
         dataCheck()
@@ -99,7 +102,7 @@ class DataDLViewController: UIViewController {
         // アラートにボタンをつける
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             print("Yesが押された")
-
+            Analytics.logEvent("DLDictionary", parameters: nil)
             let realm = try! Realm()
             let updateTimeArray = realm.objects(UpdateTime.self)
 
@@ -114,12 +117,16 @@ class DataDLViewController: UIViewController {
             print("DEBUG_PRINT: 更新時間で辞書更新")
             // ダウンロードタブのボタンのバッジを消す
             self.tabBarItemFOUR.badgeValue = nil
+
+            // インジケーターの表示(読み込み開始時などに挿入)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
             DispatchQueue.global().async {
                 print("DEBUG_PRINT: global queue!")
                 
                 DispatchQueue.main.async {
                     print("DEBUG_PRINT: main queue!")
+                   
                     SVProgressHUD.show(withStatus: "Updating")
                     
                     // UITabBarのボタンを押せなくする
@@ -127,6 +134,25 @@ class DataDLViewController: UIViewController {
                     self.tabBarItemTWO.isEnabled = false
                     self.tabBarItemTHREE.isEnabled = false
                     self.tabBarItemFOUR.isEnabled = false
+                    self.tabBarItemFIVE.isEnabled = false
+
+                    // すべてのタブのUINavigationControllerをpopさせる
+                    if let viewControllers = self.tabBarController?.viewControllers {
+                        for vc in viewControllers {
+                            if let nav = vc as? UINavigationController {
+                                nav.popToRootViewController(animated: false)
+                                print("\(nav.topViewController?.description ?? "") poped")
+                            }
+                        }
+                    }
+
+                    // SearchViewControllerで検索結果をクリア
+                    let nc = self.tabBarController?.viewControllers![1] as! UINavigationController
+                    let sc = nc.viewControllers[0] as! SearchViewController
+                    sc.allSearch(searchWord: "") // 空文字列を検索して検索結果をクリア
+                    if let tableView = sc.searchedTableView {
+                        tableView.reloadData() // TableViewを再読込
+                    }
                 }
                 self.readingDictionaryAndZip()
             }
@@ -134,6 +160,8 @@ class DataDLViewController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "No", style: .default, handler: { action in
             print("Noが押された")
+            // インジケーターの非表示(読み込み完了時などに挿入)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             //self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
@@ -200,7 +228,7 @@ class DataDLViewController: UIViewController {
                     // dicEntry.image = subJson["image"].stringValue
                     dicEntry.eng = subJson["eng"].stringValue
                     dicEntry.chn = subJson["chn"].stringValue
-                    dicEntry.kata = subJson["kata"].stringValue
+                    //dicEntry.kata = subJson["kata"].stringValue
                     dicEntry.pron = subJson["pron"].stringValue
                     dicEntry.verb = subJson["verb"].stringValue
                     dicEntry.exp = subJson["exp"].stringValue
@@ -277,6 +305,8 @@ class DataDLViewController: UIViewController {
             }
             
             print("DEBUG_PRINT: inDL 辞書読み込み時、ここでクルクルストップ!")
+            // インジケーターの非表示(読み込み完了時などに挿入)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             SVProgressHUD.dismiss()
             //self.activityIndicator.stopAnimating() // クルクルストップ
             self.grayView.removeFromSuperview()
@@ -287,7 +317,8 @@ class DataDLViewController: UIViewController {
             self.tabBarItemTWO.isEnabled = true
             self.tabBarItemTHREE.isEnabled = true
             self.tabBarItemFOUR.isEnabled = true
-            
+            self.tabBarItemFIVE.isEnabled = true
+
             self.downloadMessageLabel.text = "This is the latest version."
         }
     }
@@ -390,6 +421,7 @@ class DataDLViewController: UIViewController {
                 self.tabBarItemTWO.isEnabled = true
                 self.tabBarItemTHREE.isEnabled = true
                 self.tabBarItemFOUR.isEnabled = true
+                self.tabBarItemFIVE.isEnabled = true
                 
                 self.downloadMessageLabel.text = "This is the latest version."
             }

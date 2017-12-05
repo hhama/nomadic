@@ -24,9 +24,11 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
 
         let nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
         selectedDataTableView.register(nib, forCellReuseIdentifier: "SearchedCell")
-        selectedDataTableView.estimatedRowHeight = 70
+        let nibTitle = UINib(nibName: "TitleTableViewCell", bundle: nil)
+        selectedDataTableView.register(nibTitle, forCellReuseIdentifier: "TitleCell")
+       selectedDataTableView.estimatedRowHeight = 70
         selectedDataTableView.rowHeight = 70
-        selectedDataTableView.rowHeight = UITableViewAutomaticDimension
+        //selectedDataTableView.rowHeight = UITableViewAutomaticDimension
 
         selectedDataTableView.delegate = self
         selectedDataTableView.dataSource = self
@@ -58,27 +60,30 @@ class SelectedDataViewController: UIViewController, UITableViewDelegate, UITable
     // 各セルの内容を返すメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // 再利用可能な cell を得る
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath) as! CustomTableViewCell
-        
+       
         if indexPath.row == 0 {
+            // 再利用可能な cell を得る
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! TitleTableViewCell
             
-            cell.tnameLabel?.text = "\(categoryId) : \(category) > \(tag)"
-            // cell.tnameLabel?.textAlignment = NSTextAlignment.center
-            cell.jnameLabel?.text = ""
-            //cell.textLabel?.textColor = UIColor.lightGray
+            cell.titleLabel?.text = "\(categoryId) : \(category) > \(tag)"
             cell.backgroundColor = UIColor.white
             cell.accessoryType = .none
+            
+            return cell
         } else {
+            // 再利用可能な cell を得る
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchedCell", for: indexPath) as! CustomTableViewCell
+            
             cell.selectionStyle = UITableViewCellSelectionStyle.none
             
             // cell.tnameLabel!.font = UIFont(name: "Arial", size: 14)
-            cell.tnameLabel?.text = "\(allSelectedData[indexPath.row - 1].id) : " + allSelectedData[indexPath.row - 1].tname
+            cell.idLabel?.text = allSelectedData[indexPath.row - 1].id
+            cell.tnameLabel?.text = allSelectedData[indexPath.row - 1].tname
             cell.jnameLabel?.text = allSelectedData[indexPath.row - 1].jname
             cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+
+            return cell
         }
-        
-        return cell
     }
 
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {

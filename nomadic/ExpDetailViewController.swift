@@ -36,6 +36,9 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
         self.navigationItem.title = expTitle
         
         expDetailWebView.scrollView.bounces = false
+        
+        // 画像の拡大・縮小を可能に
+        expDetailWebView.scalesPageToFit = true
 
         // 通信できるかどうかのチェック
         let reachability = Reachability()
@@ -51,23 +54,39 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
             grayView.center = view.center
             view.addSubview(grayView)
 
+            // インジケーターの表示(読み込み開始時などに挿入)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             SVProgressHUD.show(withStatus: "Loading...")
             
-            // Create a reference to the file you want to download
-            let storageRef = Storage.storage().reference()
-            let fileRef = storageRef.child("html/\(self.expUrl)")
+            let filepath = "\(self.documentDirectory.path)/\(Const.ExpHtmlDirName)/\(self.expUrl)"
             
-            // webView.delegate = self
-            // Fetch the download URL
-            fileRef.downloadURL { (url, error) -> Void in
-                if (error != nil) {
-                    print(error!)// Handle any errors
-                } else {
-                    // Get the download URL
-                    let request: URLRequest = URLRequest(url: url!)
-                    self.expDetailWebView.loadRequest(request)
-                }
-            }
+            let url = URL(string: filepath)!
+            
+            // リクエストを生成する
+            let urlRequest = URLRequest(url: url)
+            
+            // 指定したページを読み込む
+            expDetailWebView.loadRequest(urlRequest)
+            
+            // 画像の拡大・縮小を可能に
+            expDetailWebView.scalesPageToFit = true
+            
+            
+//            // Create a reference to the file you want to download
+//            let storageRef = Storage.storage().reference()
+//            let fileRef = storageRef.child("html/\(self.expUrl)")
+//
+//            // webView.delegate = self
+//            // Fetch the download URL
+//            fileRef.downloadURL { (url, error) -> Void in
+//                if (error != nil) {
+//                    print(error!)// Handle any errors
+//                } else {
+//                    // Get the download URL
+//                    let request: URLRequest = URLRequest(url: url!)
+//                    self.expDetailWebView.loadRequest(request)
+//                }
+//            }
         }
     }
 
@@ -89,6 +108,8 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
     
     // 読み込み終了
     func webViewDidFinishLoad(_ webView: UIWebView){
+        // インジケーターの非表示(読み込み完了時などに挿入)
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         SVProgressHUD.dismiss() //クルクルストップ
         self.grayView.removeFromSuperview()
     }
@@ -98,6 +119,10 @@ class ExpDetailViewController: UIViewController,UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    // documentDirectory's url
+    private let documentDirectory:URL = {
+        return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    }()
 
     /*
     // MARK: - Navigation

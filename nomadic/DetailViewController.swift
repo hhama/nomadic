@@ -11,6 +11,9 @@ import UIKit
 //import PureLayout
 //import CopyableLabel
 import Darwin
+import SVProgressHUD
+import FontAwesomeKit
+import FirebaseAnalytics
 
 class DetailViewController: UIViewController, UIWebViewDelegate {
 
@@ -21,15 +24,28 @@ class DetailViewController: UIViewController, UIWebViewDelegate {
     var backButton: UIBarButtonItem!
     var nextButton: UIBarButtonItem!
 
+    var grayView: UIView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // 薄い灰色のViewをかぶせる
+        grayView = UIView()
+        grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+        grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        grayView.center = view.center
+        view.addSubview(grayView)
+        
+        SVProgressHUD.show(withStatus: "Loading...")
+
         // 戻る・進むボタン
         // ボタン作成
+        backButton = UIBarButtonItem(image: FAKFontAwesome.angleLeftIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0)), style: .plain, target: self, action: #selector(DetailViewController.clickBackButton))
+        nextButton = UIBarButtonItem(image: FAKFontAwesome.angleRightIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0)), style: .plain, target: self, action: #selector(DetailViewController.clickNextButton))
         // barButtonSystemItemを変更すればいろいろなアイコンに変更できます
-        backButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.rewind, target: self, action: #selector(DetailViewController.clickBackButton))
-        nextButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fastForward, target: self, action: #selector(DetailViewController.clickNextButton))
-        
+        //backButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.rewind, target: self, action: #selector(DetailViewController.clickBackButton))
+        //nextButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.fastForward, target: self, action: #selector(DetailViewController.clickNextButton))
+
         //ナビゲーションバーの右側にボタン付与
         self.navigationItem.setRightBarButtonItems([nextButton, backButton], animated: true)
         
@@ -46,8 +62,7 @@ class DetailViewController: UIViewController, UIWebViewDelegate {
         detailWebView.delegate = self
         
         let filename = String(format:"%05d.html", atoll(id))
-        let htmlDirName = Const.ZipFileName.components(separatedBy: ".").first!
-        let filepath = "\(self.documentDirectory.path)/\(htmlDirName)/\(filename)"
+        let filepath = "\(self.documentDirectory.path)/\(Const.DicHtmlDirName)/\(filename)"
         
         //print("DEBUG_PRINT: \(filepath)")
         
@@ -58,6 +73,14 @@ class DetailViewController: UIViewController, UIWebViewDelegate {
         
         // 指定したページを読み込む
         detailWebView.loadRequest(urlRequest)
+        
+        // 画像の拡大・縮小を可能に
+        detailWebView.scalesPageToFit = true
+        
+        // 選ばれたHTMLの番号をログ
+        Analytics.logEvent("DetailLook", parameters: [
+            "id": id
+            ])
 
     }
     
@@ -67,6 +90,9 @@ class DetailViewController: UIViewController, UIWebViewDelegate {
         self.backButton.isEnabled = self.detailWebView.canGoBack
         // 次のページに進めるかどうか
         self.nextButton.isEnabled = self.detailWebView.canGoForward
+
+        SVProgressHUD.dismiss() //クルクルストップ
+        self.grayView.removeFromSuperview()
     }
 
     func clickBackButton(){

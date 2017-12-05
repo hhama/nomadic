@@ -184,7 +184,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84V-Zs-6c9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1686" y="1908"/>
+            <point key="canvasLocation" x="343" y="762"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="Flb-Zh-miJ">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="jsC-fP-2ee" customClass="AboutViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BaM-3B-f1j"/>
+                        <viewControllerLayoutGuide type="bottom" id="aU0-Rs-j7o"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fy0-P4-pjk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGS-vK-Ghu">
+                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="EGS-vK-Ghu" firstAttribute="top" secondItem="BaM-3B-f1j" secondAttribute="bottom" id="Nk7-2T-dgY"/>
+                            <constraint firstItem="EGS-vK-Ghu" firstAttribute="leading" secondItem="fy0-P4-pjk" secondAttribute="leading" id="P15-Cx-KeW"/>
+                            <constraint firstAttribute="trailing" secondItem="EGS-vK-Ghu" secondAttribute="trailing" id="c47-ou-dS6"/>
+                            <constraint firstItem="aU0-Rs-j7o" firstAttribute="top" secondItem="EGS-vK-Ghu" secondAttribute="bottom" id="ceA-aL-MxR"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="About" id="ZBj-l4-IfO"/>
+                    <connections>
+                        <outlet property="aboutWebView" destination="EGS-vK-Ghu" id="DPV-V7-wWb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Q1J-xu-otS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="924" y="1548"/>
         </scene>
         <!--Reading-->
         <scene sceneID="GD9-dI-ncz">
@@ -244,7 +278,7 @@
         <!--Exp Detail View Controller-->
         <scene sceneID="fBY-Lg-SGA">
             <objects>
-                <viewController id="Y4z-hc-dvw" customClass="ExpDetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="Y4z-hc-dvw" customClass="ExpDetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="enk-gg-nWJ"/>
                         <viewControllerLayoutGuide type="bottom" id="cn6-LH-uRh"/>
@@ -259,7 +293,7 @@
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qIE-nV-VbY">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
@@ -374,7 +408,7 @@
         <!--Detail View Controller-->
         <scene sceneID="Bbp-Co-cdz">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="lwf-P0-DVs" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="lwf-P0-DVs" customClass="DetailViewController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Sp-iX-gjH"/>
                         <viewControllerLayoutGuide type="bottom" id="k1v-e9-lQP"/>
@@ -404,10 +438,10 @@
             </objects>
             <point key="canvasLocation" x="5023" y="-432"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--My Tab Bar Controller-->
         <scene sceneID="l48-wg-86c">
             <objects>
-                <tabBarController id="iiD-qM-v10" sceneMemberID="viewController">
+                <tabBarController id="iiD-qM-v10" customClass="MyTabBarController" customModule="nomadic" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="7No-nR-D4R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -418,6 +452,7 @@
                         <segue destination="lbz-T1-PbX" kind="relationship" relationship="viewControllers" id="mIY-fX-8N9"/>
                         <segue destination="yvR-Qn-H4J" kind="relationship" relationship="viewControllers" id="FZZ-3F-c9Z"/>
                         <segue destination="1MU-hY-KhM" kind="relationship" relationship="viewControllers" id="8GO-nC-Z5Q"/>
+                        <segue destination="jsC-fP-2ee" kind="relationship" relationship="viewControllers" id="Hhn-xm-Voh"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iHQ-qp-fIu" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -58,7 +58,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var tabBarItemTWO: UITabBarItem = UITabBarItem()
     var tabBarItemTHREE: UITabBarItem = UITabBarItem()
     var tabBarItemFOUR: UITabBarItem = UITabBarItem()
-    
+    var tabBarItemFIVE: UITabBarItem = UITabBarItem()
+
     @IBOutlet weak var categoryTableView: UITableView!
 
     override func viewDidLoad() {
@@ -76,7 +77,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             tabBarItemTHREE.image = FAKFontAwesome.newspaperOIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
             self.tabBarItemFOUR = arrayOfTabBarItems[3] as! UITabBarItem
             tabBarItemFOUR.image = FAKFontAwesome.downloadIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
+            self.tabBarItemFIVE = arrayOfTabBarItems[4] as! UITabBarItem
+            tabBarItemFIVE.image = FAKFontAwesome.bookIcon(withSize: 25).image(with: CGSize(width: 25.0, height: 25.0))
         }
+        
+        // Navigation Barの色を変更
+        // self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.95, green: 0.49, blue: 0.4, alpha: 1.0) // 珊瑚朱
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.75, green: 0.76, blue: 0.25, alpha: 1.0) // 鶸
 
         // アプリがForegroundになった通知を受け取る
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.viewWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
@@ -140,27 +147,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     func dataReading() {
-        
-        // 薄い灰色のViewをかぶせる
-        grayView = UIView()
-        grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
-        grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
-        grayView.center = view.center
-        view.addSubview(grayView)
-        
-        view.bringSubview(toFront: grayView)
 
         // Realm内にデータが有るかどうかのチェック
         let realm = try! Realm()
         let updateTimeArray = realm.objects(UpdateTime.self)
         
         if updateTimeArray.isEmpty {
+            // インジケーターの表示(読み込み開始時などに挿入)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
             SVProgressHUD.show(withStatus: "Updating")
             // UITabBarのボタンを押せなくする
             self.tabBarItemONE.isEnabled = false
             self.tabBarItemTWO.isEnabled = false
             self.tabBarItemTHREE.isEnabled = false
             self.tabBarItemFOUR.isEnabled = false
+            self.tabBarItemFIVE.isEnabled = false
 
             self.readingDefalultDictionaryAndZip()
         }
@@ -171,9 +173,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
         if (reachability?.isReachable)!  {
             print("DEBUG_PRINT: Connected!")
+
+            // 薄い灰色のViewをかぶせる
+            grayView = UIView()
+            grayView.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height)
+            grayView.backgroundColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+            grayView.center = view.center
+            view.addSubview(grayView)
             
+            view.bringSubview(toFront: grayView)
+
             DispatchQueue.global().async {
                 DispatchQueue.main.async {
+                    // インジケーターの表示(読み込み開始時などに挿入)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+
                     SVProgressHUD.show(withStatus: "Checking")
                     //self.activityIndicator.startAnimating() // クルクルスタート
                     
@@ -182,6 +196,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.tabBarItemTWO.isEnabled = false
                     self.tabBarItemTHREE.isEnabled = false
                     self.tabBarItemFOUR.isEnabled = false
+                    self.tabBarItemFIVE.isEnabled = false
                 }
                 self.setupDownload()
             }
@@ -232,6 +247,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 // 辞書を読み込む必要なし
 
                 print("DEBUG_PRINT: 辞書を読み込まない時、ここでクルクルストップ!")
+                // インジケーターの非表示(読み込み完了時などに挿入)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
                 SVProgressHUD.dismiss()
                 //self.activityIndicator.stopAnimating() // クルクルストップ
                 self.grayView.removeFromSuperview()
@@ -242,6 +260,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tabBarItemTWO.isEnabled = true
                 self.tabBarItemTHREE.isEnabled = true
                 self.tabBarItemFOUR.isEnabled = true
+                self.tabBarItemFIVE.isEnabled = true
             }
         })
     }
@@ -287,6 +306,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.extendZipFile()
         
                 print("DEBUG_PRINT: defaultの辞書読み込み時、ここでクルクルストップ!")
+                // インジケーターの非表示(読み込み完了時などに挿入)
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
                 SVProgressHUD.dismiss()
                 //self.activityIndicator.stopAnimating() // クルクルストップ
                 self.grayView.removeFromSuperview()
@@ -297,6 +319,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tabBarItemTWO.isEnabled = true
                 self.tabBarItemTHREE.isEnabled = true
                 self.tabBarItemFOUR.isEnabled = true
+                self.tabBarItemFIVE.isEnabled = true
             }
         })
     }
@@ -323,7 +346,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // dicEntry.image = subJson["image"].stringValue
             dicEntry.eng = subJson["eng"].stringValue
             dicEntry.chn = subJson["chn"].stringValue
-            dicEntry.kata = subJson["kata"].stringValue
+            //dicEntry.kata = subJson["kata"].stringValue
             dicEntry.pron = subJson["pron"].stringValue
             dicEntry.verb = subJson["verb"].stringValue
             dicEntry.exp = subJson["exp"].stringValue
@@ -436,7 +459,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     // dicEntry.image = subJson["image"].stringValue
                     dicEntry.eng = subJson["eng"].stringValue
                     dicEntry.chn = subJson["chn"].stringValue
-                    dicEntry.kata = subJson["kata"].stringValue
+                    //dicEntry.kata = subJson["kata"].stringValue
                     dicEntry.pron = subJson["pron"].stringValue
                     dicEntry.verb = subJson["verb"].stringValue
                     dicEntry.exp = subJson["exp"].stringValue
@@ -523,6 +546,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.tabBarItemTWO.isEnabled = true
             self.tabBarItemTHREE.isEnabled = true
             self.tabBarItemFOUR.isEnabled = true
+            self.tabBarItemFIVE.isEnabled = true
         }
     }
     
@@ -624,6 +648,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.tabBarItemTWO.isEnabled = true
                 self.tabBarItemTHREE.isEnabled = true
                 self.tabBarItemFOUR.isEnabled = true
+                self.tabBarItemFIVE.isEnabled = true
             }
         }
 
